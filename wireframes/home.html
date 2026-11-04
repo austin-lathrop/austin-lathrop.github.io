@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Home wireframe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Public+Sans:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="wire.css">
+<style>
+  /* Intro */
+  .intro { padding-top: 72px; display: grid; grid-template-columns: 1fr 200px; gap: 32px 64px; align-items: end; }
+  .statement {
+    font-family: var(--serif); font-weight: 400; font-size: var(--t-60);
+    line-height: 1.08; letter-spacing: -0.025em; margin: 0; max-width: 17em;
+    font-variation-settings: "opsz" 72;
+  }
+  .status { display: flex; align-items: center; gap: 10px; margin: 28px 0 0; font-size: var(--t-16); }
+  .status .dot { width: 10px; height: 10px; border-radius: 50%; border: 2px solid var(--ink); background: var(--ink-2); }
+  .portrait { width: 200px; }
+  .published { grid-column: 1 / -1; display: flex; align-items: center; gap: 24px; padding: 20px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-top: 24px; }
+  .published p { margin: 0; font-size: var(--t-14); color: var(--ink-2); white-space: nowrap; }
+  .published ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 12px 32px; }
+  .published li { font-family: var(--serif); font-size: var(--t-18); font-style: italic; color: var(--ink-2); }
+
+  /* Writing */
+  .leads { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+  .lead a { text-decoration: none; display: block; }
+  .lead .ph, .lead-img { margin-bottom: 16px; }
+  .lead-img { display: block; width: 100%; aspect-ratio: 3 / 2; object-fit: cover; background: var(--box); }
+  .outlet { font-size: var(--t-14); color: var(--ink-2); margin: 0 0 6px; }
+  .lead h3 { font-family: var(--serif); font-weight: 500; font-size: var(--t-36); line-height: 1.1; letter-spacing: -0.015em; margin: 0 0 10px; }
+  .lead a:hover h3 { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; }
+  .dek { margin: 0; font-family: var(--serif); font-size: var(--t-18); line-height: 1.5; color: var(--ink-2); max-width: 52ch; }
+  .clips { list-style: none; margin: 0; padding: 0; border-top: 1.5px solid var(--ink); }
+  .clips a {
+    display: grid; grid-template-columns: 200px 1fr 120px; gap: 24px; align-items: baseline;
+    padding: 20px 0; border-bottom: 1px solid var(--rule); text-decoration: none;
+  }
+  .clips a:hover h3 { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+  .clips .outlet { margin: 0; }
+  .clips h3 { font-family: var(--serif); font-weight: 500; font-size: var(--t-24); line-height: 1.2; margin: 0 0 4px; }
+  .clips .dek { font-size: var(--t-16); }
+  .clips time { font-size: var(--t-14); color: var(--ink-2); text-align: right; }
+
+  /* Photo */
+  .essays { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px 32px; }
+  .essays a { text-decoration: none; display: block; }
+  .essays .ph { margin-bottom: 14px; }
+  .essays h3 { font-family: var(--serif); font-weight: 500; font-size: var(--t-24); margin: 0 0 2px; }
+  .essays a:hover h3 { text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+  .essays p { margin: 0; font-size: var(--t-14); color: var(--ink-2); }
+
+  /* Video */
+  .video-lead { display: grid; grid-template-columns: 2fr 1fr; gap: 32px; align-items: end; margin-bottom: 40px; }
+  .video-lead h3 { font-family: var(--serif); font-weight: 500; font-size: var(--t-36); line-height: 1.1; margin: 0 0 12px; }
+  .credits { margin: 16px 0 0; display: grid; grid-template-columns: auto 1fr; gap: 4px 16px; font-size: var(--t-14); }
+  .credits dt { color: var(--ink-2); }
+  .credits dd { margin: 0; }
+  .video-more { display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px; }
+  .video-more article { display: grid; grid-template-columns: 200px 1fr; gap: 16px; align-items: start; }
+  .video-more h4 { font-family: var(--serif); font-weight: 500; font-size: var(--t-21); margin: 0 0 4px; }
+  .video-more p { margin: 0; font-size: var(--t-14); color: var(--ink-2); }
+
+  /* About */
+  .about { display: grid; grid-template-columns: 3fr 2fr; gap: 64px; }
+  .about-copy p { font-family: var(--serif); font-size: var(--t-21); line-height: 1.55; margin: 0 0 1em; max-width: 34em; }
+  .skills { margin: 0; display: grid; gap: 18px; }
+  .skills div { border-top: 1px solid var(--rule); padding-top: 12px; }
+  .skills dt { font-size: var(--t-14); color: var(--ink-2); margin-bottom: 2px; }
+  .skills dd { margin: 0; }
+
+  .sample-flag {
+    display: inline-block; margin: -12px 0 24px; padding: 6px 12px;
+    border: 1.5px dashed var(--ink-2); color: var(--ink-2); font-size: 13px;
+  }
+  .sample-flag ~ * { opacity: 0.55; }
+  .sample-flag ~ .note { opacity: 1; }
+
+  /* Footer */
+  .contact { margin-top: 120px; padding: 80px 0 48px; background: var(--box); }
+  .contact h2 { font-family: var(--serif); font-weight: 400; font-size: var(--t-24); margin: 0 0 12px; color: var(--ink-2); }
+  .contact .email {
+    display: inline-block; font-family: var(--serif); font-size: var(--t-60); line-height: 1.05;
+    letter-spacing: -0.02em; text-decoration-thickness: 2px; text-underline-offset: 8px; word-break: break-word;
+  }
+  .contact-row { display: flex; align-items: center; gap: 32px; margin-top: 40px; flex-wrap: wrap; }
+  .contact-row ul { list-style: none; display: flex; gap: 24px; margin: 0; padding: 0; font-size: var(--t-14); }
+  .fine { margin-top: 64px; font-size: var(--t-12); color: var(--ink-2); }
+
+  @media (max-width: 720px) {
+    .intro { grid-template-columns: 1fr 88px; padding-top: 32px; gap: 20px; align-items: start; }
+    .statement { font-size: var(--t-36); line-height: 1.1; grid-column: 1 / -1; grid-row: 2; }
+    .portrait { width: 88px; grid-column: 2; grid-row: 1; }
+    .status { grid-column: 1; grid-row: 1; margin: 0; align-self: center; font-size: var(--t-14); }
+    .intro-text { display: contents; }
+    .published { flex-direction: column; align-items: flex-start; gap: 8px; margin-top: 4px; }
+    .published li { font-size: var(--t-16); }
+    .published ul { gap: 4px 20px; }
+    .leads { grid-template-columns: 1fr; gap: 32px; margin-bottom: 24px; }
+    .lead h3 { font-size: var(--t-24); }
+    .clips a { grid-template-columns: 1fr; gap: 2px; }
+    .clips time { text-align: left; order: -1; font-size: 13px; }
+    .clips h3 { font-size: var(--t-21); }
+    .essays { grid-template-columns: 1fr; gap: 28px; }
+    .video-lead { grid-template-columns: 1fr; gap: 16px; margin-bottom: 28px; }
+    .video-lead h3 { font-size: var(--t-24); }
+    .video-more { grid-template-columns: 1fr; gap: 20px; }
+    .video-more article { grid-template-columns: 128px 1fr; }
+    .video-more h4 { font-size: var(--t-18); }
+    .about { grid-template-columns: 1fr; gap: 32px; }
+    .about-copy p { font-size: var(--t-18); }
+    .contact { margin-top: 80px; padding: 56px 0 32px; }
+    .contact .email { font-size: var(--t-36); }
+  }
+</style>
+</head>
+<body id="top">
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="wordmark" href="#top">Austin Lathrop</a>
+    <nav class="jump" aria-label="Sections">
+      <a href="#writing">Writing</a>
+      <a href="#photo">Photo</a>
+      <a href="#video">Video</a>
+      <a href="#about">About</a>
+    </nav>
+    <div class="head-cta">
+      <a class="btn btn-solid" href="mailto:austinlathrop132@gmail.com"><span class="long">Email me</span><span class="short">Email</span></a>
+      <a class="btn" href="cv.pdf" target="_blank" rel="noopener"><span class="long">Download CV</span><span class="short">CV</span></a>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="intro" aria-label="Introduction">
+    <div class="intro-text">
+      <h1 class="statement">I report on agriculture, rural communities and the environment in Northeast Georgia.</h1>
+      <p class="status"><span class="dot" aria-hidden="true"></span>Available for freelance assignments. Based in Athens, Georgia.</p>
+    </div>
+    <div class="ph r-4x5 portrait"><span>Your portrait (optional)</span></div>
+    <div class="published">
+      <p>Published in</p>
+      <ul>
+        <li>The Oglethorpe Echo</li>
+        <li>Grady Newsource</li>
+      </ul>
+    </div>
+  </section>
+  <p class="note"><b>Your opening line.</b> Drafted from your four stories. Rewrite it in your own words if it doesn't sound like you. The availability line is a placeholder; tell me what you want it to say.</p>
+  <p class="note"><b>Outlet row.</b> Set in italic text, not logos. It grows automatically as you publish in new places.</p>
+
+  <section class="section" id="writing">
+    <div class="section-head">
+      <h2>Writing</h2>
+      <p>Reported news and features. Read each one here, with a link to where it was first published.</p>
+    </div>
+
+    <div class="leads">
+      <article class="lead">
+        <a href="story-beef-prices.html">
+          <img class="lead-img" src="images/beef-cam-ranches-cattle.jpg" alt="Black Angus cattle stand in a dry pasture under a cloudy sky.">
+          <p class="outlet">The Oglethorpe Echo, October 2026</p>
+          <h3>Experts, ranchers say beef prices likely to remain high for years</h3>
+          <p class="dek">With the U.S. cattle herd at its smallest since 1951, Georgia ranchers and a UGA livestock economist say relief at the grocery store could be three to five years away.</p>
+        </a>
+      </article>
+      <article class="lead">
+        <a href="story-athens-de-icing.html">
+          <img class="lead-img" src="images/de-icing-trail-creek.jpg" alt="Trail Creek flows between wooded banks toward a road bridge.">
+          <p class="outlet">Grady Newsource, March 2026</p>
+          <h3>Athens' de-icing chemicals raise waterway concerns</h3>
+          <p class="dek">Crews spread 942 tons of sand and 1,400 gallons of brine during January's storm. When it rains, what's left washes toward local streams.</p>
+        </a>
+      </article>
+    </div>
+    <p class="note"><b>Two lead stories, with your own photos.</b> They show range: agriculture and environment, at two outlets. Home-page photos are trimmed to the same shape so the pair lines up; the story pages show them uncropped.</p>
+
+    <ul class="clips">
+      <li><a href="story-ffa-busy-fall.html">
+        <p class="outlet">The Oglethorpe Echo</p>
+        <div><h3>Students in agriculture, FFA prepare for busy fall</h3><p class="dek">Oglethorpe County High hosts three FFA competitions, and two students head to the national talent stage.</p></div>
+        <time datetime="2026-09-30">Sep 2026</time>
+      </a></li>
+      <li><a href="story-4h-program-assistant.html">
+        <p class="outlet">The Oglethorpe Echo</p>
+        <div><h3>4-H adds program assistant, agent role still in limbo</h3><p class="dek">After a federal AmeriCorps cut, the county's 4-H office fills one position while another stays uncertain.</p></div>
+        <time datetime="2026-09-16">Sep 2026</time>
+      </a></li>
+    </ul>
+    <p class="note"><b>Stories open on your site.</b> Editors read the full piece without leaving your portfolio, and each story page credits and links to the original outlet. The one-line summaries are my drafts from your text; edit them freely.</p>
+  </section>
+
+  <section class="section" id="photo">
+    <div class="section-head">
+      <h2>Photo</h2>
+      <p>Photo essays. Each opens in full, with captions.</p>
+    </div>
+    <p class="sample-flag">Sample content. This section stays hidden until you add a photo essay of your own.</p>
+    <div class="essays">
+      <a href="essay.html">
+        <div class="ph r-3x2"><span>Cover image</span></div>
+        <h3>Flood Season</h3>
+        <p>Altamaha River basin, for The Piedmont Observer</p>
+      </a>
+      <a href="essay.html">
+        <div class="ph r-3x2"><span>Cover image</span></div>
+        <h3>Night Shift</h3>
+        <p>Gainesville, Georgia, self-assigned</p>
+      </a>
+      <a href="essay.html">
+        <div class="ph r-3x2"><span>Cover image</span></div>
+        <h3>Mill Village, Rebuilt</h3>
+        <p>Porterdale, Georgia, for Field &amp; Commons</p>
+      </a>
+      <a href="essay.html">
+        <div class="ph r-3x2"><span>Cover image</span></div>
+        <h3>Pecan Harvest</h3>
+        <p>Dougherty County, for Coastal Plain Review</p>
+      </a>
+    </div>
+    <p class="note"><b>Covers stay 3:2</b> so the grid reads evenly. The full uncropped frames live on the essay page. Self-assigned work is labeled honestly; editors value initiative.</p>
+  </section>
+
+  <section class="section" id="video">
+    <div class="section-head">
+      <h2>Video</h2>
+      <p>Short documentaries and news packages.</p>
+    </div>
+    <p class="sample-flag">Sample content. This section stays hidden until you add a video of your own.</p>
+    <div class="video-lead">
+      <div class="ph r-16x9 play" role="img" aria-label="Embedded video player"></div>
+      <div>
+        <p class="outlet">The Piedmont Observer, 2026</p>
+        <h3>Rising Rent, Empty Rooms</h3>
+        <p class="dek">The video companion to the renters investigation.</p>
+        <dl class="credits">
+          <dt>Runtime</dt><dd>8:42</dd>
+          <dt>My role</dt><dd>Reported, shot, and edited</dd>
+        </dl>
+      </div>
+    </div>
+    <div class="video-more">
+      <article>
+        <div class="ph r-16x9 play small" role="img" aria-label="Video thumbnail"></div>
+        <div><h4>The River Keeper</h4><p>Field &amp; Commons, 4:10</p><p>Shot and edited</p></div>
+      </article>
+      <article>
+        <div class="ph r-16x9 play small" role="img" aria-label="Video thumbnail"></div>
+        <div><h4>Before the Storm</h4><p>Southern Water Desk, 2:55</p><p>Reported and produced</p></div>
+      </article>
+    </div>
+    <p class="note"><b>Plays inline.</b> Editors shouldn't leave the page to watch. "My role" matters most here, because video credits are often shared.</p>
+  </section>
+
+  <section class="section" id="about">
+    <div class="section-head">
+      <h2>About</h2>
+    </div>
+    <div class="about">
+      <div class="about-copy">
+        <p>I'm a journalism student at the University of Georgia's Grady College of Journalism, minoring in public affairs, and I report on agriculture, rural communities and the environment for The Oglethorpe Echo and Grady Newsource.</p>
+        <p>Before reporting, I spent two summers in Washington, D.C., including an internship with the U.S. House Oversight and Accountability Committee. I know how hearings, rulemakings and public records work, and I bring that to local stories.</p>
+        <p>My stories start with the people closest to an issue, like ranchers, teachers and county staff, and back them up with federal data. I shoot my own photos and build my own charts.</p>
+      </div>
+      <dl class="skills">
+        <div><dt>Beats</dt><dd>Agriculture, rural schools and youth programs, environment, local government, public policy</dd></div>
+        <div><dt>Sources and data</dt><dd>USDA and BLS data, federal research, congressional and agency records, school board and county records</dd></div>
+        <div><dt>Visual</dt><dd>News photography, data charts (Datawrapper)</dd></div>
+        <div><dt>Education</dt><dd>B.A. in Journalism, minor in Public Affairs, University of Georgia, expected May 2027</dd></div>
+        <div><dt>Coverage area</dt><dd>Oglethorpe and Athens-Clarke counties, Northeast Georgia</dd></div>
+      </dl>
+    </div>
+    <p class="note"><b>Drafted from your stories and CV.</b> Your D.C. experience is a real selling point for policy and government stories, so it gets its own paragraph. Edit freely.</p>
+  </section>
+
+</main>
+
+<footer class="contact" id="contact">
+  <div class="wrap">
+    <h2>Assigning a story in Northeast Georgia?</h2>
+    <a class="email" href="mailto:austinlathrop132@gmail.com">austinlathrop132@gmail.com</a>
+    <div class="contact-row">
+      <a class="btn btn-solid" href="cv.pdf" target="_blank" rel="noopener">Download CV (PDF, 1 page)</a>
+      <ul>
+        <li><a href="https://www.linkedin.com/in/austin-lathrop-658bb330a/" target="_blank" rel="noopener">LinkedIn</a></li>
+      </ul>
+    </div>
+    <p class="note"><b>Email and CV.</b> The email is set large enough to copy at a glance. The CV opens in a new tab. Add other social accounts here if you use them for work.</p>
+    <p class="fine">Stories link to the outlets that published them.</p>
+  </div>
+</footer>
+
+<script>
+  addEventListener("message", (e) => {
+    if (e.data && typeof e.data.notes === "boolean") document.body.classList.toggle("notes-off", !e.data.notes);
+  });
+  if (new URLSearchParams(location.search).get("notes") === "off") document.body.classList.add("notes-off");
+</script>
+</body>
+</html>

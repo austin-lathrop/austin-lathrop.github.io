@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Photo essay wireframe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Public+Sans:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="wire.css">
+<style>
+  .back { display: inline-block; margin-top: 28px; font-size: var(--t-14); color: var(--ink-2); }
+
+  .essay-head { display: grid; grid-template-columns: 1fr 280px; gap: 64px; align-items: end; padding: 40px 0 48px; }
+  .essay-head h1 {
+    font-family: var(--serif); font-weight: 400; font-size: 5.25rem; line-height: 0.95;
+    letter-spacing: -0.03em; margin: 0 0 20px; font-variation-settings: "opsz" 72;
+  }
+  .essay-head .dek { font-family: var(--serif); font-size: var(--t-24); line-height: 1.4; color: var(--ink-2); margin: 0; max-width: 32em; }
+  .facts { margin: 0; display: grid; gap: 14px; font-size: var(--t-14); }
+  .facts div { border-top: 1px solid var(--rule); padding-top: 10px; }
+  .facts dt { color: var(--ink-2); }
+  .facts dd { margin: 0; }
+
+  .frames { display: grid; gap: 72px; }
+  figure { margin: 0; }
+  figcaption { margin-top: 12px; max-width: 62ch; font-size: var(--t-14); line-height: 1.55; color: var(--ink-2); }
+  figcaption b { color: var(--ink); font-weight: 600; }
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .inset { max-width: 760px; }
+
+  .closing { display: grid; grid-template-columns: 3fr 2fr; gap: 64px; padding-top: 96px; }
+  .closing h2 { font-family: var(--serif); font-weight: 500; font-size: var(--t-24); margin: 0 0 12px; }
+  .closing p { font-family: var(--serif); font-size: var(--t-18); line-height: 1.6; margin: 0; max-width: 36em; }
+  .next { display: block; text-decoration: none; border-top: 1.5px solid var(--ink); padding-top: 16px; }
+  .next .ph { margin: 12px 0; }
+  .next p { font-family: var(--sans); font-size: var(--t-14); color: var(--ink-2); }
+  .next h3 { font-family: var(--serif); font-weight: 500; font-size: var(--t-36); margin: 0; }
+  .next:hover h3 { text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; }
+
+  .cta { margin: 120px 0 0; padding: 56px 0; background: var(--box); }
+  .cta .wrap { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+  .cta p { font-family: var(--serif); font-size: var(--t-36); line-height: 1.1; margin: 0 auto 0 0; max-width: 18em; }
+  .cta .btns { display: flex; gap: 8px; }
+
+  @media (max-width: 720px) {
+    .back { margin-top: 16px; }
+    .essay-head { grid-template-columns: 1fr; gap: 24px; padding: 20px 0 28px; }
+    .essay-head h1 { font-size: var(--t-48); margin-bottom: 12px; }
+    .essay-head .dek { font-size: var(--t-18); }
+    .facts { grid-template-columns: 1fr 1fr; gap: 12px 16px; }
+    .frames { gap: 44px; margin: 0 calc(-1 * var(--gutter)); }
+    figcaption { padding: 0 var(--gutter); }
+    .pair { grid-template-columns: 1fr; gap: 44px; }
+    .closing { grid-template-columns: 1fr; gap: 40px; padding-top: 64px; }
+    .cta { margin-top: 72px; padding: 40px 0; }
+    .cta p { font-size: var(--t-24); }
+  }
+  .sample-flag { display: inline-block; margin: 16px 0 0 24px; padding: 6px 12px; border: 1.5px dashed var(--ink-2); color: var(--ink-2); font-size: 13px; }
+  @media (max-width: 720px) { .sample-flag { margin-left: 0; } }
+</style>
+</head>
+<body>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="wordmark" href="home.html">Austin Lathrop</a>
+    <nav class="jump" aria-label="Sections">
+      <a href="home.html#writing">Writing</a>
+      <a href="home.html#photo">Photo</a>
+      <a href="home.html#video">Video</a>
+      <a href="home.html#about">About</a>
+    </nav>
+    <div class="head-cta">
+      <a class="btn btn-solid" href="mailto:austinlathrop132@gmail.com"><span class="long">Email me</span><span class="short">Email</span></a>
+      <a class="btn" href="cv.pdf" target="_blank" rel="noopener"><span class="long">Download CV</span><span class="short">CV</span></a>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <a class="back" href="home.html#photo">Back to all photo essays</a>
+  <p class="sample-flag">Sample photo essay. Your own essays will use this page layout.</p>
+
+  <header class="essay-head">
+    <div>
+      <h1>Flood Season</h1>
+      <p class="dek">Along the Altamaha, spring floods now arrive twice a year. Families who farmed the bottomland for generations are deciding whether to stay.</p>
+    </div>
+    <dl class="facts">
+      <div><dt>Where</dt><dd>Altamaha River basin, Georgia</dd></div>
+      <div><dt>When</dt><dd>March to May 2026</dd></div>
+      <div><dt>Published by</dt><dd><a href="#">The Piedmont Observer</a></dd></div>
+      <div><dt>Frames</dt><dd>14 photographs</dd></div>
+    </dl>
+  </header>
+  <p class="note"><b>Essay header.</b> Facts sit in a side column so the title and dek read like a magazine opener. "Published by" links to the original placement when there is one.</p>
+
+  <div class="frames">
+    <figure>
+      <div class="ph r-3x2"><span>Opening frame, full width, uncropped</span></div>
+      <figcaption><b>Jesup, Ga., April 9, 2026.</b> Darnell Fryer checks the waterline on his equipment shed the morning after the second crest in five weeks. The shed has flooded four times since 2021.</figcaption>
+    </figure>
+    <p class="note"><b>One frame per row,</b> full container width, at the photo's native aspect ratio. Captions follow AP style: place and date first, then who and what.</p>
+
+    <figure>
+      <div class="ph r-3x2"><span>Frame 2</span></div>
+      <figcaption><b>Wayne County, Ga., April 10, 2026.</b> Floodwater covers a planted soybean field. Fryer estimates the loss at 60 acres this season.</figcaption>
+    </figure>
+
+    <div class="pair">
+      <figure>
+        <div class="ph r-2x3"><span>Vertical frame</span></div>
+        <figcaption><b>Jesup, Ga., April 11, 2026.</b> Mae Fryer, 81, keeps the family's deeds in a cooler on the top shelf.</figcaption>
+      </figure>
+      <figure>
+        <div class="ph r-2x3"><span>Vertical frame</span></div>
+        <figcaption><b>Jesup, Ga., April 11, 2026.</b> High-water marks penciled on the kitchen doorframe, 1994 to 2026.</figcaption>
+      </figure>
+    </div>
+    <p class="note"><b>Paired verticals</b> break up the rhythm. Use them only when two frames talk to each other. They stack on phones.</p>
+
+    <figure class="inset">
+      <div class="ph r-3x2"><span>Quiet frame, narrower</span></div>
+      <figcaption><b>Altamaha River, May 2, 2026.</b> The river back inside its banks, three weeks before the forecast's next crest.</figcaption>
+    </figure>
+    <p class="note"><b>Narrower inset</b> for quieter frames gives the sequence a pace, like a page turn.</p>
+  </div>
+
+  <section class="closing">
+    <div>
+      <h2>About this reporting</h2>
+      <p>I photographed the Fryer family over eleven visits between March and May 2026, alongside reporting for The Piedmont Observer's series on rural flood risk. Flood data comes from USGS gauge records.</p>
+    </div>
+    <a class="next" href="essay.html">
+      <p>Next essay</p>
+      <div class="ph r-3x2"><span>Cover image</span></div>
+      <h3>Night Shift</h3>
+    </a>
+  </section>
+  <p class="note"><b>Reporting note</b> shows the depth of access behind the images. "Next essay" keeps editors moving through your photo work without going back to the home page.</p>
+</main>
+
+<section class="cta" aria-label="Contact">
+  <div class="wrap">
+    <p>Assigning a story in Northeast Georgia?</p>
+    <div class="btns">
+      <a class="btn btn-solid" href="mailto:austinlathrop132@gmail.com">Email me</a>
+      <a class="btn" href="cv.pdf" target="_blank" rel="noopener">Download CV</a>
+    </div>
+  </div>
+</section>
+
+<script>
+  addEventListener("message", (e) => {
+    if (e.data && typeof e.data.notes === "boolean") document.body.classList.toggle("notes-off", !e.data.notes);
+  });
+  if (new URLSearchParams(location.search).get("notes") === "off") document.body.classList.add("notes-off");
+</script>
+</body>
+</html>

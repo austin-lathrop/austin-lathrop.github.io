@@ -1,0 +1,11 @@
+_site/
+vendor/
+.bundle/
+.jekyll-cache/
+.sass-cache/
+.claude/
+.superpowers/
+.DS_Store
+# Not published until the owner chooses which CV to make public (see plan Task 8)
+assets/cv.pdf
+wireframes/cv.pdf
