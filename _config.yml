@@ -30,3 +30,7 @@ defaults:
       type: stories
     values:
       layout: story
+  - scope:
+      type: essays
+    values:
+      layout: essay

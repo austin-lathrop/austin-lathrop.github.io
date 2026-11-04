@@ -79,6 +79,60 @@ layout: default
   </section>
   {%- endif %}
 
+  {%- if site.essays.size > 0 %}
+  <section class="section" id="photo">
+    <div class="section-head">
+      <h2>Photo</h2>
+      <p>Photo essays. Each opens in full, with captions.</p>
+    </div>
+    <div class="essays">
+      {%- for e in site.essays %}
+      <a href="{{ e.url | relative_url }}">
+        {%- if e.cover %}<img src="{{ e.cover | relative_url }}" alt="">{% endif %}
+        <h3>{{ e.title | escape }}</h3>
+        <p>{{ e.location | escape }}{% if e.outlet and e.outlet != "" %}, for {{ e.outlet | escape }}{% endif %}</p>
+      </a>
+      {%- endfor %}
+    </div>
+  </section>
+  {%- endif %}
+
+  {%- assign videos = site.data.videos -%}
+  {%- if videos.size > 0 %}
+  {%- assign lead_video = videos | where: "lead", true | first | default: videos.first -%}
+  <section class="section" id="video">
+    <div class="section-head">
+      <h2>Video</h2>
+      <p>Short documentaries and news packages.</p>
+    </div>
+    <div class="video-lead">
+      {% include video-embed.html url=lead_video.url title=lead_video.title %}
+      <div>
+        <p class="outlet">{{ lead_video.outlet | escape }}{% if lead_video.year %}, {{ lead_video.year }}{% endif %}</p>
+        <h3>{{ lead_video.title | escape }}</h3>
+        <dl class="credits">
+          {%- if lead_video.runtime %}<dt>Runtime</dt><dd>{{ lead_video.runtime | escape }}</dd>{% endif %}
+          {%- if lead_video.role %}<dt>My role</dt><dd>{{ lead_video.role | escape }}</dd>{% endif %}
+        </dl>
+      </div>
+    </div>
+    {%- if videos.size > 1 %}
+    <div class="video-more">
+      {%- for v in videos %}
+      {%- if v.url != lead_video.url or v.title != lead_video.title %}
+      <article>
+        {% include video-embed.html url=v.url title=v.title %}
+        <h4>{{ v.title | escape }}</h4>
+        <p>{{ v.outlet | escape }}{% if v.runtime %}, {{ v.runtime | escape }}{% endif %}</p>
+        {%- if v.role %}<p>{{ v.role | escape }}</p>{% endif %}
+      </article>
+      {%- endif %}
+      {%- endfor %}
+    </div>
+    {%- endif %}
+  </section>
+  {%- endif %}
+
   <section class="section" id="about">
     <div class="section-head">
       <h2>About</h2>

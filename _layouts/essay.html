@@ -1,0 +1,57 @@
+---
+layout: default
+---
+{%- assign all = site.essays -%}
+{%- for e in all -%}{%- if e.url == page.url -%}{%- assign i = forloop.index -%}{%- endif -%}{%- endfor -%}
+{%- assign next_i = i | modulo: all.size -%}
+{%- assign next = all[next_i] -%}
+<main class="wrap">
+  <a class="back" href="{{ '/' | relative_url }}#photo">Back to all photo essays</a>
+
+  <header class="essay-head">
+    <div>
+      <h1>{{ page.title | escape }}</h1>
+      {%- if page.dek and page.dek != "" %}
+      <p class="dek">{{ page.dek | escape }}</p>
+      {%- endif %}
+    </div>
+    <dl class="facts">
+      {%- if page.location and page.location != "" %}<div><dt>Where</dt><dd>{{ page.location | escape }}</dd></div>{% endif %}
+      {%- if page.dates and page.dates != "" %}<div><dt>When</dt><dd>{{ page.dates | escape }}</dd></div>{% endif %}
+      {%- if page.outlet and page.outlet != "" %}<div><dt>Published by</dt><dd>{% if page.published_url and page.published_url != "" %}<a href="{{ page.published_url | escape }}" target="_blank" rel="noopener">{{ page.outlet | escape }}</a>{% else %}{{ page.outlet | escape }}{% endif %}</dd></div>{% endif %}
+      <div><dt>Frames</dt><dd>{{ page.frames.size }} photographs</dd></div>
+    </dl>
+  </header>
+
+  <div class="frames">
+    {%- assign in_pair = false -%}
+    {%- for f in page.frames -%}
+      {%- if f.layout == "pair" -%}
+        {%- unless in_pair %}<div class="pair">{% assign in_pair = true %}{% endunless -%}
+        {% include figure.html src=f.image alt=f.alt caption=f.caption credit=f.credit class="" %}
+      {%- else -%}
+        {%- if in_pair %}</div>{% assign in_pair = false %}{% endif -%}
+        {%- if f.layout == "inset" -%}{%- assign cls = "inset" -%}{%- else -%}{%- assign cls = "" -%}{%- endif -%}
+        {% include figure.html src=f.image alt=f.alt caption=f.caption credit=f.credit class=cls %}
+      {%- endif -%}
+    {%- endfor -%}
+    {%- if in_pair %}</div>{% endif %}
+  </div>
+
+  <section class="closing">
+    <div>
+      {%- if page.reporting_note and page.reporting_note != "" %}
+      <h2>About this reporting</h2>
+      <p>{{ page.reporting_note | escape }}</p>
+      {%- endif %}
+    </div>
+    {%- if all.size > 1 %}
+    <a class="next" href="{{ next.url | relative_url }}">
+      <p>Next essay</p>
+      {%- if next.cover %}<img src="{{ next.cover | relative_url }}" alt="">{% endif %}
+      <h3>{{ next.title | escape }}</h3>
+    </a>
+    {%- endif %}
+  </section>
+</main>
+{% include contact.html %}
