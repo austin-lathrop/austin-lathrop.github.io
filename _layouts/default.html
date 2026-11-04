@@ -1,6 +1,9 @@
 {%- assign p = site.data.profile -%}
-{%- if page.title -%}{%- assign doc_title = page.title | append: " | " | append: p.name -%}{%- else -%}{%- assign doc_title = p.name -%}{%- endif -%}
-{%- assign doc_desc = page.description | default: site.description -%}
+{%- assign heading = page.headline | default: page.title -%}
+{%- if heading and page.url != "/" -%}{%- assign doc_title = heading | append: " | " | append: p.name -%}{%- else -%}{%- assign heading = p.name -%}{%- assign doc_title = p.name -%}{%- endif -%}
+{%- assign doc_desc = page.dek | default: page.description | default: site.description -%}
+{%- assign canonical = page.original_url | default: page.canonical -%}
+{%- assign og_image = page.image | default: page.cover | default: page.og_image -%}
 <!doctype html>
 <html lang="en">
 <head>
@@ -8,15 +11,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{ doc_title | escape }}</title>
 <meta name="description" content="{{ doc_desc | strip_html | escape }}">
-{%- if page.canonical %}
-<link rel="canonical" href="{{ page.canonical | escape }}">
+{%- if canonical %}
+<link rel="canonical" href="{{ canonical | escape }}">
 {%- endif %}
 <meta property="og:type" content="{% if page.collection %}article{% else %}website{% endif %}">
-<meta property="og:title" content="{{ page.title | default: p.name | escape }}">
+<meta property="og:title" content="{{ heading | escape }}">
 <meta property="og:description" content="{{ doc_desc | strip_html | escape }}">
 <meta property="og:url" content="{{ page.url | absolute_url }}">
-{%- if page.og_image %}
-<meta property="og:image" content="{{ page.og_image | absolute_url }}">
+{%- if og_image and og_image != "" %}
+<meta property="og:image" content="{{ og_image | absolute_url }}">
 <meta name="twitter:card" content="summary_large_image">
 {%- endif %}
 <link rel="preconnect" href="https://fonts.googleapis.com">

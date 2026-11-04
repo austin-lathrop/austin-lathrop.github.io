@@ -28,6 +28,57 @@ layout: default
     {%- endif %}
   </section>
 
+  {%- assign sorted = site.stories | sort: "date" | reverse -%}
+  {%- if sorted.size > 0 %}
+  {%- assign lead_urls = "" -%}
+  {%- assign lead_count = 0 -%}
+  {%- for s in sorted -%}
+    {%- if s.lead and s.image and s.image != "" and lead_count < 2 -%}
+      {%- assign lead_urls = lead_urls | append: s.url | append: "|" -%}
+      {%- assign lead_count = lead_count | plus: 1 -%}
+    {%- endif -%}
+  {%- endfor %}
+  <section class="section" id="writing">
+    <div class="section-head">
+      <h2>Writing</h2>
+      <p>Reported news and features. Read each one here, with a link to where it was first published.</p>
+    </div>
+    {%- if lead_count > 0 %}
+    <div class="leads">
+      {%- for s in sorted %}
+      {%- assign key = s.url | append: "|" -%}
+      {%- if lead_urls contains key %}
+      <article class="lead">
+        <a href="{{ s.url | relative_url }}">
+          <img class="lead-img" src="{{ s.image | relative_url }}" alt="{{ s.image_alt | escape }}">
+          <p class="outlet">{{ s.outlet | escape }}, {{ s.date | date: "%B %Y" }}</p>
+          <h3>{{ s.headline | escape }}</h3>
+          {%- if s.dek and s.dek != "" %}
+          <p class="dek">{{ s.dek | escape }}</p>
+          {%- endif %}
+        </a>
+      </article>
+      {%- endif %}
+      {%- endfor %}
+    </div>
+    {%- endif %}
+    {%- if lead_count < sorted.size %}
+    <ul class="clips">
+      {%- for s in sorted %}
+      {%- assign key = s.url | append: "|" -%}
+      {%- unless lead_urls contains key %}
+      <li><a href="{{ s.url | relative_url }}">
+        <p class="outlet">{{ s.outlet | escape }}</p>
+        <div><h3>{{ s.headline | escape }}</h3>{% if s.dek and s.dek != "" %}<p class="dek">{{ s.dek | escape }}</p>{% endif %}</div>
+        <time datetime="{{ s.date | date: '%Y-%m-%d' }}">{{ s.date | date: "%b %Y" }}</time>
+      </a></li>
+      {%- endunless %}
+      {%- endfor %}
+    </ul>
+    {%- endif %}
+  </section>
+  {%- endif %}
+
   <section class="section" id="about">
     <div class="section-head">
       <h2>About</h2>

@@ -24,3 +24,9 @@ exclude:
   - Gemfile.lock
   - README.md
   - .pages.yml
+
+defaults:
+  - scope:
+      type: stories
+    values:
+      layout: story

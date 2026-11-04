@@ -1,0 +1,5 @@
+<figure class="{{ include.class }}"><img src="{{ include.src | relative_url }}" alt="{{ include.alt | escape }}" loading="lazy">
+{%- if include.caption and include.caption != "" or include.credit and include.credit != "" -%}
+<figcaption>{{ include.caption | escape }}{% if include.credit and include.credit != "" %} <span class="credit-line">{{ include.credit | escape }}</span>{% endif %}</figcaption>
+{%- endif -%}
+</figure>

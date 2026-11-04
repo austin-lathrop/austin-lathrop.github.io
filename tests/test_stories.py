@@ -1,0 +1,131 @@
+import re
+import unittest
+
+from sitelib import fixtures_on, load, site_dir
+
+SLUGS = ["beef-prices", "ffa-busy-fall", "4h-program-assistant", "athens-de-icing"]
+
+
+def body_children(page):
+    body = page.nodes("div", cls="body")
+    assert len(body) == 1, "expected one .body"
+    return body[0].element_children()
+
+
+def figure_after(children, para_match):
+    """The element right after the first <p> whose text starts with para_match (or is the Nth <p>)."""
+    count = 0
+    for i, n in enumerate(children):
+        if n.tag != "p":
+            continue
+        count += 1
+        if (isinstance(para_match, int) and count == para_match) or (
+            isinstance(para_match, str) and n.text().startswith(para_match)
+        ):
+            return children[i + 1] if i + 1 < len(children) else None
+    raise AssertionError(f"paragraph {para_match!r} not found")
+
+
+def img_src(node):
+    imgs = [c for c in node.element_children() if c.tag == "img"]
+    return imgs[0].attrs.get("src", "") if imgs else ""
+
+
+class StoryPagesTest(unittest.TestCase):
+    def test_story_pages_exist(self):
+        for slug in SLUGS:
+            self.assertTrue((site_dir() / "stories" / slug / "index.html").is_file(), slug)
+
+    def test_canonical_and_credit(self):
+        page = load("stories/beef-prices/index.html")
+        canon = page.find_all("link", rel="canonical")
+        self.assertEqual(
+            [c["attrs"]["href"] for c in canon],
+            ["https://www.theoglethorpeecho.com/local-news/experts-ranchers-say-beef-prices-likely-remain-high-years"],
+        )
+        self.assertIn("Originally published by The Oglethorpe Echo on October 7, 2026.", page.text())
+
+    def test_inline_photo_position(self):
+        page = load("stories/beef-prices/index.html")
+        nxt = figure_after(body_children(page), 3)
+        self.assertEqual(nxt.tag, "figure")
+        self.assertTrue(img_src(nxt).endswith("beef-ground-beef-prices-chart.png"))
+
+    def test_converted_photo_lands_in_its_section(self):
+        page = load("stories/athens-de-icing/index.html")
+        nxt = figure_after(body_children(page), "Sand, used far more heavily")
+        self.assertEqual(nxt.tag, "figure")
+        self.assertTrue(img_src(nxt).endswith("de-icing-curb-gravel.jpg"))
+
+    def test_lead_photo_not_upscaled(self):
+        css = (site_dir() / "assets" / "css" / "site.css").read_text(encoding="utf-8")
+        rule = re.search(r"\.lead-figure img\s*\{([^}]*)\}", css)
+        self.assertIsNotNone(rule, "no .lead-figure img rule")
+        self.assertIn("width: auto", rule.group(1))
+        self.assertIn("max-width: 100%", rule.group(1))
+        page = load("stories/4h-program-assistant/index.html")
+        lead = page.nodes("figure", cls="lead-figure")
+        self.assertEqual(len(lead), 1)
+        img = [c for c in lead[0].element_children() if c.tag == "img"][0]
+        self.assertNotIn("width", img.attrs)
+
+    def test_photo_credits_shown(self):
+        page = load("stories/athens-de-icing/index.html")
+        credits = [n.text() for n in page.nodes("span", cls="credit-line")]
+        self.assertEqual(credits, ["Photo: Austin Lathrop"] * 3)
+
+    def test_home_writing_order(self):
+        home = load("index.html")
+        leads = home.nodes("div", cls="leads")
+        clips = home.nodes("ul", cls="clips")
+        self.assertEqual(len(leads), 1)
+        self.assertEqual(len(clips), 1)
+        lead_hrefs = [a.attrs["href"] for a in home.nodes("a", within=leads[0])]
+        clip_hrefs = [a.attrs["href"] for a in home.nodes("a", within=clips[0])]
+        self.assertEqual(lead_hrefs[:2], ["/stories/beef-prices/", "/stories/athens-de-icing/"])
+        expected_rows = ["/stories/ffa-busy-fall/", "/stories/4h-program-assistant/"]
+        self.assertEqual([h for h in clip_hrefs if h in expected_rows], expected_rows)
+
+    def test_next_story_wraps(self):
+        page = load("stories/athens-de-icing/index.html")
+        nxt = page.find_all("a", cls="next")
+        self.assertEqual(len(nxt), 1)
+        if not fixtures_on():
+            self.assertEqual(nxt[0]["attrs"]["href"], "/stories/beef-prices/")
+
+    def test_escaping(self):
+        page = load("stories/athens-de-icing/index.html")
+        og = page.find_all("meta", property="og:title")
+        self.assertEqual([m["attrs"]["content"] for m in og], ["Athens' de-icing chemicals raise waterway concerns"])
+        titles = page.find_all("title")
+        self.assertTrue(titles[0]["text"].startswith("Athens' de-icing chemicals raise waterway concerns"))
+
+
+@unittest.skipUnless(fixtures_on(), "needs tests/build_with_fixtures.sh")
+class StoryEdgeCasesTest(unittest.TestCase):
+    def setUp(self):
+        self.page = load("stories/edge-case/index.html")
+
+    def test_photo_beyond_last_paragraph_appended(self):
+        children = body_children(self.page)
+        paras = [i for i, n in enumerate(children) if n.tag == "p"]
+        figs = [i for i, n in enumerate(children) if n.tag == "figure"]
+        self.assertEqual(len(figs), 1, "photo dropped or duplicated")
+        self.assertGreater(figs[0], paras[-1])
+
+    def test_lead_without_image_renders_as_row(self):
+        home = load("index.html")
+        leads = home.nodes("div", cls="leads")[0]
+        clips = home.nodes("ul", cls="clips")[0]
+        self.assertNotIn("/stories/edge-case/", [a.attrs["href"] for a in home.nodes("a", within=leads)])
+        self.assertIn("/stories/edge-case/", [a.attrs["href"] for a in home.nodes("a", within=clips)])
+
+    def test_headline_with_quotes_and_ampersand(self):
+        og = self.page.find_all("meta", property="og:title")
+        self.assertEqual(og[0]["attrs"]["content"], "Q&A: \"Quotes\" & 'apostrophes'")
+        h1 = self.page.find_all("h1")
+        self.assertEqual(h1[0]["text"], "Q&A: \"Quotes\" & 'apostrophes'")
+
+
+if __name__ == "__main__":
+    unittest.main()

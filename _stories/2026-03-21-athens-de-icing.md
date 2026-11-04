@@ -4,6 +4,7 @@ dek: "Crews spread 942 tons of sand and 1,400 gallons of brine during January's 
 outlet: "Grady Newsource"
 date: 2026-03-21
 original_url: https://gradynewsource.uga.edu/athens-de-icing-chemicals-raise-waterway-concerns/
+lead: true
 image: /assets/images/stories/de-icing-trail-creek.jpg
 image_alt: "Trail Creek flows between wooded banks toward a road bridge."
 image_caption: "Trail Creek flows toward Oconee Street Bridge near Dudley Park on Feb. 17, 2026. De-icing products used on nearby roadways seep into the creek and the Oconee River."

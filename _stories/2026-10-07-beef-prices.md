@@ -4,6 +4,7 @@ dek: "With the U.S. cattle herd at its smallest since 1951, Georgia ranchers and
 outlet: "The Oglethorpe Echo"
 date: 2026-10-07
 original_url: https://www.theoglethorpeecho.com/local-news/experts-ranchers-say-beef-prices-likely-remain-high-years
+lead: true
 image: /assets/images/stories/beef-cam-ranches-cattle.jpg
 image_alt: "Black Angus cattle stand in a dry pasture under a cloudy sky."
 image_caption: "Cattle graze in the pastures at CAM Ranches in Crawford last week. The ranch, which is owned by Andrew McPeake, is home to 20 cows and 75 heifers."

@@ -1,0 +1,72 @@
+---
+layout: default
+---
+{%- assign sorted = site.stories | sort: "date" | reverse -%}
+{%- for s in sorted -%}{%- if s.url == page.url -%}{%- assign i = forloop.index -%}{%- endif -%}{%- endfor -%}
+{%- assign next_i = i | modulo: sorted.size -%}
+{%- assign next = sorted[next_i] -%}
+{%- assign words = content | strip_html | number_of_words -%}
+{%- assign minutes = words | divided_by: 230.0 | ceil -%}
+{%- assign long_date = page.date | date: "%B %-d, %Y" -%}
+<main class="wrap">
+  <a class="back" href="{{ '/' | relative_url }}#writing">Back to all writing</a>
+
+  <article>
+    <header class="story-head">
+      <p class="source">{{ page.outlet | escape }}, <time datetime="{{ page.date | date: '%Y-%m-%d' }}">{{ long_date }}</time></p>
+      <h1>{{ page.headline | escape }}</h1>
+      {%- if page.dek and page.dek != "" %}
+      <p class="dek">{{ page.dek | escape }}</p>
+      {%- endif %}
+      <p class="byline">By {{ site.data.profile.name | escape }}</p>
+    </header>
+    {%- if page.image and page.image != "" %}
+    {% include figure.html src=page.image alt=page.image_alt caption=page.image_caption credit=page.image_credit class="lead-figure" %}
+    {%- endif %}
+
+    <div class="story-grid">
+      <aside class="rail" aria-label="About this story">
+        <dl>
+          <div><dt>Published in</dt><dd>{{ page.outlet | escape }}</dd></div>
+          <div><dt>Date</dt><dd>{{ long_date }}</dd></div>
+          <div><dt>Reading time</dt><dd>{{ minutes }} min</dd></div>
+        </dl>
+        {%- if page.original_url %}
+        <a class="btn" href="{{ page.original_url | escape }}" target="_blank" rel="noopener">Read the original</a>
+        {%- endif %}
+      </aside>
+
+      <div class="body">
+        {%- assign parts = content | split: "</p>" -%}
+        {%- for part in parts -%}
+          {%- assign n = forloop.index -%}
+          {{ part }}
+          {%- unless forloop.last -%}</p>
+            {%- for ph in page.photos -%}
+              {%- if ph.after_paragraph == n -%}
+                {% include figure.html src=ph.image alt=ph.alt caption=ph.caption credit=ph.credit class="inline" %}
+              {%- endif -%}
+            {%- endfor -%}
+          {%- endunless -%}
+        {%- endfor -%}
+        {%- for ph in page.photos -%}
+          {%- if ph.after_paragraph >= parts.size -%}
+            {% include figure.html src=ph.image alt=ph.alt caption=ph.caption credit=ph.credit class="inline" %}
+          {%- endif -%}
+        {%- endfor %}
+      </div>
+    </div>
+
+    <footer class="story-foot">
+      <p class="credit">Originally published by {{ page.outlet | escape }} on {{ long_date }}.{% if page.original_url %} <a href="{{ page.original_url | escape }}" target="_blank" rel="noopener">Read it at {{ page.outlet | escape }}</a>.{% endif %}</p>
+      {%- if sorted.size > 1 %}
+      <a class="next" href="{{ next.url | relative_url }}">
+        <p>Next story</p>
+        <h3>{{ next.headline | escape }}</h3>
+        <p>{{ next.outlet | escape }}, {{ next.date | date: "%B %-d, %Y" }}</p>
+      </a>
+      {%- endif %}
+    </footer>
+  </article>
+</main>
+{% include contact.html %}
