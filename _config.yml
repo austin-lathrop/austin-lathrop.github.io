@@ -3,6 +3,9 @@ description: Reporter covering agriculture, rural communities and the environmen
 url: https://aml18270-boop.github.io
 baseurl: ""
 
+# Publish stories even if their date is later than the build time (a typo'd year must not hide a story).
+future: true
+
 markdown: kramdown
 kramdown:
   input: GFM

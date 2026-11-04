@@ -1,0 +1,286 @@
+# Pages CMS configuration: the forms Austin uses at app.pagescms.org to update the site.
+# Field names must match the templates in _layouts/ and index.html (tests/test_pages_cms.py checks this).
+
+media:
+  - name: images
+    label: Photos
+    input: assets/images
+    output: /assets/images
+    rename: safe
+    extensions: [jpg, jpeg, png, webp, gif]
+  - name: files
+    label: Files (CV)
+    input: assets/files
+    output: /assets/files
+    rename: safe
+    extensions: [pdf]
+
+content:
+  - name: stories
+    label: Stories
+    type: collection
+    path: _stories
+    format: yaml-frontmatter
+    filename: "{year}-{month}-{day}-{primary}.md"
+    view:
+      primary: headline
+      fields: [headline, outlet, date]
+      sort: [date, headline]
+      default:
+        sort: date
+        order: desc
+    fields:
+      - name: headline
+        label: Headline
+        type: string
+        required: true
+        description: As it was published.
+      - name: dek
+        label: Summary shown on the home page
+        type: text
+        description: One or two sentences. Also used when the link is shared.
+      - name: outlet
+        label: Published in
+        type: string
+        required: true
+        description: For example, The Oglethorpe Echo.
+      - name: date
+        label: Publication date
+        type: date
+        required: true
+        options:
+          format: yyyy-MM-dd
+      - name: original_url
+        label: Link to the original story
+        type: string
+        required: true
+        description: The full web address of the story on the outlet's site.
+      - name: lead
+        label: Feature on home page
+        type: boolean
+        default: false
+        description: Shows this story large, with its photo, at the top of Writing. Needs a lead photo. Only the two newest featured stories are shown large.
+      - name: image
+        label: Lead photo
+        type: image
+        description: Shown under the headline. Use your own photo or one you have permission to use.
+        options:
+          media: images
+          path: assets/images/stories
+      - name: image_alt
+        label: Lead photo description (for screen readers)
+        type: string
+        description: Describe what is in the photo in one sentence.
+      - name: image_caption
+        label: Lead photo caption
+        type: text
+      - name: image_credit
+        label: Lead photo credit
+        type: string
+        description: "For example: Photo: Austin Lathrop, or Submitted photo."
+      - name: photos
+        label: More photos and charts
+        type: object
+        list: true
+        description: Extra images placed inside the story text.
+        fields:
+          - name: image
+            label: Photo or chart
+            type: image
+            options:
+              media: images
+              path: assets/images/stories
+          - name: alt
+            label: Description (for screen readers)
+            type: string
+          - name: caption
+            label: Caption
+            type: text
+          - name: credit
+            label: Credit
+            type: string
+          - name: after_paragraph
+            label: Show this photo after paragraph number
+            type: number
+            description: Count paragraphs from the top of the story. A number past the end puts the photo at the bottom.
+            options:
+              min: 0
+      - name: body
+        label: Story text
+        type: rich-text
+        description: Paste the full published story. Keep links to your sources.
+        options:
+          format: markdown
+          media: images
+          path: assets/images/stories
+
+  - name: essays
+    label: Photo essays
+    type: collection
+    path: _essays
+    format: yaml-frontmatter
+    filename: "{primary}.md"
+    view:
+      primary: title
+      fields: [title, location, dates]
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: dek
+        label: Summary
+        type: text
+      - name: location
+        label: Where
+        type: string
+      - name: dates
+        label: When
+        type: string
+        description: For example, March to May 2026.
+      - name: outlet
+        label: Published by
+        type: string
+        description: Leave blank for self-assigned work.
+      - name: published_url
+        label: Link to the published version
+        type: string
+      - name: cover
+        label: Cover photo
+        type: image
+        required: true
+        description: Shown on the home page grid, cropped to a 3:2 rectangle.
+        options:
+          media: images
+          path: assets/images/essays
+      - name: frames
+        label: Photos
+        type: object
+        list: true
+        description: In the order they should appear.
+        fields:
+          - name: image
+            label: Photo
+            type: image
+            options:
+              media: images
+              path: assets/images/essays
+          - name: alt
+            label: Description (for screen readers)
+            type: string
+          - name: caption
+            label: Caption
+            type: text
+            description: "AP style: place and date first, then who and what."
+          - name: credit
+            label: Credit
+            type: string
+          - name: layout
+            label: Layout
+            type: select
+            description: "full: one photo across the page. pair: two in a row (use on two photos back to back). inset: a narrower, quieter frame."
+            options:
+              values: [full, pair, inset]
+      - name: reporting_note
+        label: About this reporting
+        type: text
+
+  - name: videos
+    label: Videos
+    type: file
+    path: _data/videos.yml
+    format: yaml
+    list: true
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: outlet
+        label: Published by
+        type: string
+      - name: year
+        label: Year
+        type: number
+      - name: runtime
+        label: Length
+        type: string
+        description: For example, 4:10.
+      - name: role
+        label: My role
+        type: string
+        description: For example, Reported, shot and edited.
+      - name: url
+        label: Video link
+        type: string
+        required: true
+        description: A YouTube or Vimeo link plays on the page. Any other link shows a Watch button.
+      - name: lead
+        label: Feature as the large video
+        type: boolean
+        default: false
+
+  - name: profile
+    label: Profile
+    type: file
+    path: _data/profile.yml
+    format: yaml
+    fields:
+      - name: name
+        label: Name
+        type: string
+        required: true
+      - name: opening_line
+        label: Opening line
+        type: text
+        required: true
+        description: The large sentence at the top of the home page.
+      - name: availability
+        label: Availability line
+        type: string
+        description: Leave blank to hide it.
+      - name: email
+        label: Email address
+        type: string
+        required: true
+      - name: linkedin
+        label: LinkedIn link
+        type: string
+      - name: portrait
+        label: Portrait
+        type: image
+        description: A head-and-shoulders photo, shown small beside the opening line. Leave blank to hide.
+        options:
+          media: images
+          path: assets/images
+      - name: portrait_alt
+        label: Portrait description (for screen readers)
+        type: string
+      - name: cv
+        label: CV (PDF)
+        type: file
+        description: Upload a public version without your phone number. Leave blank to hide the Download CV buttons.
+        options:
+          media: files
+      - name: contact_heading
+        label: Contact heading
+        type: string
+      - name: outlets
+        label: Published in (outlet names)
+        type: string
+        list: true
+      - name: about
+        label: About paragraphs
+        type: text
+        list: true
+      - name: skills
+        label: Skills list
+        type: object
+        list: true
+        fields:
+          - name: label
+            label: Label
+            type: string
+          - name: value
+            label: Details
+            type: string
