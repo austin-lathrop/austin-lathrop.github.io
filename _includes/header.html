@@ -1,0 +1,27 @@
+{%- assign p = site.data.profile -%}
+{%- assign home = '/' | relative_url -%}
+<header class="site-head">
+  <div class="wrap">
+    <a class="wordmark" href="{{ home }}">{{ p.name | escape }}</a>
+    <nav class="jump" aria-label="Sections">
+      {%- if site.stories.size > 0 %}
+      <a href="{{ home }}#writing">Writing</a>
+      {%- endif %}
+      {%- if site.essays.size > 0 %}
+      <a href="{{ home }}#photo">Photo</a>
+      {%- endif %}
+      {%- if site.data.videos.size > 0 %}
+      <a href="{{ home }}#video">Video</a>
+      {%- endif %}
+      <a href="{{ home }}#about">About</a>
+    </nav>
+    <div class="head-cta">
+      {%- if p.email %}
+      <a class="btn btn-solid" href="mailto:{{ p.email | escape }}"><span class="long">Email me</span><span class="short">Email</span></a>
+      {%- endif %}
+      {%- if p.cv and p.cv != "" %}
+      <a class="btn" href="{{ p.cv | relative_url }}" target="_blank" rel="noopener"><span class="long">Download CV</span><span class="short">CV</span></a>
+      {%- endif %}
+    </div>
+  </div>
+</header>

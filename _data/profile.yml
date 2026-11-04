@@ -1,0 +1,28 @@
+# Your profile. Edit this through Pages CMS (Profile). Blank fields are hidden on the site.
+name: Austin Lathrop
+opening_line: I report on agriculture, rural communities and the environment in Northeast Georgia.
+availability: Available for freelance assignments. Based in Athens, Georgia.
+email: austinlathrop132@gmail.com
+linkedin: https://www.linkedin.com/in/austin-lathrop-658bb330a/
+portrait: ""
+portrait_alt: ""
+cv: ""
+contact_heading: Assigning a story in Northeast Georgia?
+outlets:
+  - The Oglethorpe Echo
+  - Grady Newsource
+about:
+  - I'm a journalism student at the University of Georgia's Grady College of Journalism, minoring in public affairs, and I report on agriculture, rural communities and the environment for The Oglethorpe Echo and Grady Newsource.
+  - Before reporting, I spent two summers in Washington, D.C., including an internship with the U.S. House Oversight and Accountability Committee. I know how hearings, rulemakings and public records work, and I bring that to local stories.
+  - My stories start with the people closest to an issue, like ranchers, teachers and county staff, and back them up with federal data. I shoot my own photos and build my own charts.
+skills:
+  - label: Beats
+    value: Agriculture, rural schools and youth programs, environment, local government, public policy
+  - label: Sources and data
+    value: USDA and BLS data, federal research, congressional and agency records, school board and county records
+  - label: Visual
+    value: News photography, data charts (Datawrapper)
+  - label: Education
+    value: B.A. in Journalism, minor in Public Affairs, University of Georgia, expected May 2027
+  - label: Coverage area
+    value: Oglethorpe and Athens-Clarke counties, Northeast Georgia

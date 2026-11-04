@@ -1,0 +1,31 @@
+{%- assign p = site.data.profile -%}
+{%- if page.title -%}{%- assign doc_title = page.title | append: " | " | append: p.name -%}{%- else -%}{%- assign doc_title = p.name -%}{%- endif -%}
+{%- assign doc_desc = page.description | default: site.description -%}
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ doc_title | escape }}</title>
+<meta name="description" content="{{ doc_desc | strip_html | escape }}">
+{%- if page.canonical %}
+<link rel="canonical" href="{{ page.canonical | escape }}">
+{%- endif %}
+<meta property="og:type" content="{% if page.collection %}article{% else %}website{% endif %}">
+<meta property="og:title" content="{{ page.title | default: p.name | escape }}">
+<meta property="og:description" content="{{ doc_desc | strip_html | escape }}">
+<meta property="og:url" content="{{ page.url | absolute_url }}">
+{%- if page.og_image %}
+<meta property="og:image" content="{{ page.og_image | absolute_url }}">
+<meta name="twitter:card" content="summary_large_image">
+{%- endif %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Public+Sans:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ '/assets/css/site.css' | relative_url }}">
+</head>
+<body>
+{% include header.html %}
+{{ content }}
+</body>
+</html>

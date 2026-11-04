@@ -1,0 +1,14 @@
+{%- assign p = site.data.profile -%}
+<section class="cta" aria-label="Contact">
+  <div class="wrap">
+    <p>{{ p.contact_heading | escape }}</p>
+    <div class="btns">
+      {%- if p.email %}
+      <a class="btn btn-solid" href="mailto:{{ p.email | escape }}">Email me</a>
+      {%- endif %}
+      {%- if p.cv and p.cv != "" %}
+      <a class="btn" href="{{ p.cv | relative_url }}" target="_blank" rel="noopener">Download CV</a>
+      {%- endif %}
+    </div>
+  </div>
+</section>

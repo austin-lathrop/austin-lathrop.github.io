@@ -1,3 +1,71 @@
 ---
+layout: default
 ---
-<!doctype html><title>{{ site.title }}</title>
+{%- assign p = site.data.profile -%}
+{%- assign has_portrait = false -%}
+{%- if p.portrait and p.portrait != "" -%}{%- assign has_portrait = true -%}{%- endif -%}
+<main class="wrap">
+
+  <section class="intro{% unless has_portrait %} no-portrait{% endunless %}" aria-label="Introduction">
+    <div class="intro-text">
+      <h1 class="statement">{{ p.opening_line | escape }}</h1>
+      {%- if p.availability and p.availability != "" %}
+      <p class="status"><span class="dot" aria-hidden="true"></span>{{ p.availability | escape }}</p>
+      {%- endif %}
+    </div>
+    {%- if has_portrait %}
+    <img class="portrait" src="{{ p.portrait | relative_url }}" alt="{{ p.portrait_alt | default: p.name | escape }}">
+    {%- endif %}
+    {%- if p.outlets.size > 0 %}
+    <div class="published">
+      <p>Published in</p>
+      <ul>
+        {%- for o in p.outlets %}
+        <li>{{ o | escape }}</li>
+        {%- endfor %}
+      </ul>
+    </div>
+    {%- endif %}
+  </section>
+
+  <section class="section" id="about">
+    <div class="section-head">
+      <h2>About</h2>
+    </div>
+    <div class="about">
+      <div class="about-copy">
+        {%- for para in p.about %}
+        <p>{{ para | escape }}</p>
+        {%- endfor %}
+      </div>
+      {%- if p.skills.size > 0 %}
+      <dl class="skills">
+        {%- for s in p.skills %}
+        <div><dt>{{ s.label | escape }}</dt><dd>{{ s.value | escape }}</dd></div>
+        {%- endfor %}
+      </dl>
+      {%- endif %}
+    </div>
+  </section>
+
+</main>
+
+<footer class="contact" id="contact">
+  <div class="wrap">
+    <h2>{{ p.contact_heading | escape }}</h2>
+    {%- if p.email %}
+    <a class="email" href="mailto:{{ p.email | escape }}">{{ p.email | escape }}</a>
+    {%- endif %}
+    <div class="contact-row">
+      {%- if p.cv and p.cv != "" %}
+      <a class="btn btn-solid" href="{{ p.cv | relative_url }}" target="_blank" rel="noopener">Download CV (PDF)</a>
+      {%- endif %}
+      {%- if p.linkedin and p.linkedin != "" %}
+      <ul>
+        <li><a href="{{ p.linkedin | escape }}" target="_blank" rel="noopener">LinkedIn</a></li>
+      </ul>
+      {%- endif %}
+    </div>
+    <p class="fine">Stories link to the outlets that first published them.</p>
+  </div>
+</footer>
