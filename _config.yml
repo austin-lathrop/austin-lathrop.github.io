@@ -1,0 +1,26 @@
+title: Austin Lathrop
+description: Reporter covering agriculture, rural communities and the environment in Northeast Georgia.
+url: https://aml18270-boop.github.io
+baseurl: ""
+
+markdown: kramdown
+kramdown:
+  input: GFM
+
+collections:
+  stories:
+    output: true
+    permalink: /stories/:slug/
+  essays:
+    output: true
+    permalink: /photo/:slug/
+
+exclude:
+  - docs
+  - wireframes
+  - tests
+  - vendor
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - .pages.yml

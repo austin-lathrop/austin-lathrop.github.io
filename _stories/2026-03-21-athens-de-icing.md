@@ -8,14 +8,23 @@ image: /assets/images/stories/de-icing-trail-creek.jpg
 image_alt: "Trail Creek flows between wooded banks toward a road bridge."
 image_caption: "Trail Creek flows toward Oconee Street Bridge near Dudley Park on Feb. 17, 2026. De-icing products used on nearby roadways seep into the creek and the Oconee River."
 image_credit: "Photo: Austin Lathrop"
+photos:
+  - image: /assets/images/stories/de-icing-miller-learning-center.jpg
+    alt: "A student walks past a brick campus building with patches of snow on the ground."
+    caption: "Students walk past the University of Georgia's Miller Learning Center on Jan. 27, 2026. Snow and ice litters campus pathways after a recent storm."
+    credit: "Photo: Austin Lathrop"
+    after_paragraph: 3
+  - image: /assets/images/stories/de-icing-curb-gravel.jpg
+    alt: "Gravel and debris collected along a concrete curb beside a road."
+    caption: "Gravel and other debris lines the curb near the University of Georgia Police Department parking lot on Feb. 27, 2026."
+    credit: "Photo: Austin Lathrop"
+    after_paragraph: 15
 ---
 Winter storms bring more to Athens-Clarke County than snow and ice.
 
 After the slush melts, salt crystals and sand linger on streets and sidewalks until the next rainstorm washes those materials toward storm drains, ditches and nearby waterways.
 
 During the two winter storms in Athens during 2026, Athens-Clarke County Emergency Management used a mix of sand and salt-based products to keep roads passable. During the most recent event on Jan. 26, crews applied 1,400 gallons of brine, 942 tons of sand and 7 tons of salt to county roadways.
-
-{% include figure.html src="/assets/images/stories/de-icing-miller-learning-center.jpg" alt="A student walks past a brick campus building with patches of snow on the ground." caption="Students walk past the University of Georgia's Miller Learning Center on Jan. 27, 2026. Snow and ice litters campus pathways after a recent storm." credit="Photo: Austin Lathrop" %}
 
 Workers treated sidewalks and public-access areas with 275 gallons of liquid calcium chloride and 5 tons of granular calcium chloride. Products like these prevent crashes and pedestrian injuries, but runoff can sweep these substances into streams that feed the Oconee River watershed.
 
@@ -46,8 +55,6 @@ Runoff and the dissolved salts it carries can [raise](https://link.springer.com/
 ## Abrasives Don’t Disappear
 
 Sand, used far more heavily than salt in the county’s totals, can also cause problems after leaving the roadway. [Studies](https://rosap.ntl.bts.gov/view/dot/24834/dot_24834_DS1.pdf) show abrasives can increase water turbidity, clog storm drains and settle into streambeds, limiting the habitat and oxygen available to aquatic organisms. Even when cleanup efforts are undertaken after winter storms, [research](https://rosap.ntl.bts.gov/view/dot/22453/dot_22453_DS1.pdf) suggests a substantial share of applied sand remains somewhere in the environment.
-
-{% include figure.html src="/assets/images/stories/de-icing-curb-gravel.jpg" alt="Gravel and debris collected along a concrete curb beside a road." caption="Gravel and other debris lines the curb near the University of Georgia Police Department parking lot on Feb. 27, 2026." credit="Photo: Austin Lathrop" %}
 
 Barnum said the county’s Public Works Department tries to collect debris from roadways once the immediate response ends.
 

@@ -8,14 +8,18 @@ image: /assets/images/stories/beef-cam-ranches-cattle.jpg
 image_alt: "Black Angus cattle stand in a dry pasture under a cloudy sky."
 image_caption: "Cattle graze in the pastures at CAM Ranches in Crawford last week. The ranch, which is owned by Andrew McPeake, is home to 20 cows and 75 heifers."
 image_credit: "Photo: Austin Lathrop/The Oglethorpe Echo"
+photos:
+  - image: /assets/images/stories/beef-ground-beef-prices-chart.png
+    alt: "Line chart: the average August price of a pound of ground beef rose from $4.21 in 2016 to $7.16 in 2026."
+    caption: "Average price of a pound of ground beef each August, 2016 to 2026. Source: U.S. Bureau of Labor Statistics."
+    credit: "Chart: Austin Lathrop"
+    after_paragraph: 3
 ---
 Beef prices have reached a record high, and the people who breed and study cattle in Georgia say recovery could take years.
 
 “I think right now we’re not going to see a decrease in prices for three to four to five years,” said Andrew McPeake, owner of [CAM Ranches](https://www.camranches.com/index.html) in Crawford.
 
 Consumers are seeing it, too. Ground beef averaged $7.16 a pound nationally in August, up 7.9% compared to last year, according to the [Bureau of Labor Statistics](https://www.bls.gov/regions/mid-atlantic/data/averageretailfoodandenergyprices_usandmidwest_table.htm).
-
-{% include figure.html src="/assets/images/stories/beef-ground-beef-prices-chart.png" alt="Line chart: the average August price of a pound of ground beef rose from $4.21 in 2016 to $7.16 in 2026." caption="Average price of a pound of ground beef each August, 2016 to 2026. Source: U.S. Bureau of Labor Statistics." credit="Chart: Austin Lathrop" %}
 
 Will Secor, a University of Georgia livestock economist, said the explanation starts with supply and demand.
 
