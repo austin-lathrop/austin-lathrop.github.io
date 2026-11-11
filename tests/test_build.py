@@ -19,6 +19,10 @@ class BuildTest(unittest.TestCase):
         raw = (site_dir() / "index.html").read_text(encoding="utf-8")
         self.assertRegex(raw, r'href="/assets/css/site\.css\?v=\d+"')
 
+    def test_site_address_uses_owner_name(self):
+        raw = (site_dir() / "index.html").read_text(encoding="utf-8")
+        self.assertIn('property="og:url" content="https://austin-lathrop.github.io/"', raw)
+
 
 if __name__ == "__main__":
     unittest.main()

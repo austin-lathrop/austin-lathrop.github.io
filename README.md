@@ -1,11 +1,11 @@
 # How to update your portfolio
 
-Your site lives at **https://aml18270-boop.github.io**. You update it in your web browser with Pages CMS. You never need Terminal or code. Every time you click **Save**, the live site updates in about a minute.
+Your site lives at **https://austin-lathrop.github.io**. You update it in your web browser with Pages CMS. You never need Terminal or code. Every time you click **Save**, the live site updates in about a minute.
 
 ## Open the editor
 
 1. Go to **app.pagescms.org** and sign in with GitHub.
-2. Click the **aml18270-boop.github.io** repository.
+2. Click the **austin-lathrop.github.io** repository.
 3. The menu on the left has four areas: **Stories**, **Photo essays**, **Videos** and **Profile**.
 
 ## Add a new story
@@ -53,5 +53,5 @@ These sections stay hidden on the site until you add your first one.
 ## If something looks wrong
 
 - Changes take about a minute to appear. Refresh the page after that.
-- If a change never appears, the site may have hit an error. Open **github.com/aml18270-boop/aml18270-boop.github.io/actions** to see the latest build, or ask Claude to look.
+- If a change never appears, the site may have hit an error. Open **github.com/austin-lathrop/austin-lathrop.github.io/actions** to see the latest build, or ask Claude to look.
 - Every save is kept in history, so any change can be undone.
