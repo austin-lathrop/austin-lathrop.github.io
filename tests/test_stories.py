@@ -3,7 +3,7 @@ import unittest
 
 from sitelib import fixtures_on, load, site_dir
 
-SLUGS = ["beef-prices", "ffa-busy-fall", "4h-program-assistant", "athens-de-icing"]
+SLUGS = ["plowshare-tea", "beef-prices", "ffa-busy-fall", "4h-program-assistant", "athens-de-icing"]
 
 
 def body_children(page):
@@ -74,6 +74,25 @@ class StoryPagesTest(unittest.TestCase):
         credits = [n.text() for n in page.nodes("span", cls="credit-line")]
         self.assertEqual(credits, ["Photo: Austin Lathrop"] * 3)
 
+    def test_plowshare_story(self):
+        page = load("stories/plowshare-tea/index.html")
+        self.assertEqual([h["text"] for h in page.find_all("h1")], ["Plowshare members share tea recipes, ingredients at meeting"])
+        self.assertIn("The Oglethorpe Echo, November 11, 2026", page.text())
+        lead = page.nodes("figure", cls="lead-figure")
+        self.assertEqual(len(lead), 1)
+        self.assertTrue(img_src(lead[0]).endswith("/assets/images/stories/plowshare-tea-herbs.jpg"))
+        self.assertEqual([n.text() for n in page.nodes("span", cls="credit-line", within=lead[0])], ["Photo: Austin Lathrop"])
+        canon = page.find_all("link", rel="canonical")
+        self.assertEqual(canon[0]["attrs"]["href"],
+                         "https://www.theoglethorpeecho.com/local-news/plowshare-members-share-tea-recipes-ingredients-meeting")
+
+    def test_newest_story_tops_the_list(self):
+        if fixtures_on():
+            self.skipTest("fixtures add a 2099 story")
+        home = load("index.html")
+        clips = home.nodes("ul", cls="clips")[0]
+        self.assertEqual([a.attrs["href"] for a in home.nodes("a", within=clips)][0], "/stories/plowshare-tea/")
+
     def test_home_writing_order(self):
         home = load("index.html")
         leads = home.nodes("div", cls="leads")
@@ -91,7 +110,8 @@ class StoryPagesTest(unittest.TestCase):
         nxt = page.find_all("a", cls="next")
         self.assertEqual(len(nxt), 1)
         if not fixtures_on():
-            self.assertEqual(nxt[0]["attrs"]["href"], "/stories/beef-prices/")
+            # The oldest story wraps around to the newest one.
+            self.assertEqual(nxt[0]["attrs"]["href"], "/stories/plowshare-tea/")
 
     def test_escaping(self):
         page = load("stories/athens-de-icing/index.html")
@@ -119,6 +139,12 @@ class StoryEdgeCasesTest(unittest.TestCase):
         clips = home.nodes("ul", cls="clips")[0]
         self.assertNotIn("/stories/edge-case/", [a.attrs["href"] for a in home.nodes("a", within=leads)])
         self.assertIn("/stories/edge-case/", [a.attrs["href"] for a in home.nodes("a", within=clips)])
+
+    def test_story_without_text_points_to_original(self):
+        page = load("stories/no-text-yet/index.html")
+        body = page.nodes("div", cls="body")[0]
+        links = [a for a in page.nodes("a", within=body) if a.attrs.get("href") == "https://example.com/no-text-yet"]
+        self.assertEqual([a.text() for a in links], ["Read the full story at Test Outlet"])
 
     def test_headline_with_quotes_and_ampersand(self):
         og = self.page.find_all("meta", property="og:title")
