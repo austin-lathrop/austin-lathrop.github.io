@@ -1,12 +1,18 @@
 ---
-headline: "Plowshare members share tea recipes, ingredients at meeting"
-dek: "Members of Plowshare, a local garden group, brought homegrown tea blends and the herbs behind them to share and taste at their November meeting."
-outlet: "The Oglethorpe Echo"
+headline: Plowshare members share tea recipes, ingredients at meeting
+dek: Members of Plowshare, a local garden group, brought homegrown tea blends
+  and the herbs behind them to share and taste at their November meeting.
+outlet: The Oglethorpe Echo
 date: 2026-11-11
 original_url: https://www.theoglethorpeecho.com/local-news/plowshare-members-share-tea-recipes-ingredients-meeting
+lead: false
 image: /assets/images/stories/plowshare-tea-herbs.jpg
-image_alt: "Labeled glass jars of dried herbs, including marshmallow, calendula and chamomile, on a daisy-print tablecloth while meeting attendees talk in the background."
-image_caption: "Dried herbs, tea strainers and other tea-making equipment line a table at Plowshare's tea night in Crawford on Monday. The meeting ended with a tasting of roselle, holy basil and an herbal blend."
+image_alt: Labeled glass jars of dried herbs, including marshmallow, calendula
+  and chamomile, on a daisy-print tablecloth while meeting attendees talk in the
+  background.
+image_caption: Dried herbs, tea strainers and other tea-making equipment line a
+  table at Plowshare's tea night in Crawford on Monday. The meeting ended with a
+  tasting of roselle, holy basil and an herbal blend.
 image_credit: "Photo: Austin Lathrop"
 ---
 Every night, Steven and Vickie Coker brew a batch of tea made from roselle, lemon verbena and apple mint they grow themselves near Smithonia.
