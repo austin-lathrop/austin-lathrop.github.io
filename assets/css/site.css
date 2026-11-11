@@ -89,9 +89,13 @@ img { max-width: 100%; }
 .lead a:hover h3 { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; }
 .dek { margin: 0; font-family: var(--serif); font-size: var(--t-18); line-height: 1.5; color: var(--ink-2); max-width: 52ch; }
 .clips { list-style: none; margin: 0; padding: 0; border-top: 1.5px solid var(--ink); }
-.clips a { display: grid; grid-template-columns: 200px 1fr 120px; gap: 24px; align-items: baseline; padding: 20px 0; border-bottom: 1px solid var(--rule); text-decoration: none; }
+.clips a { display: grid; grid-template-columns: 176px 1fr 120px; gap: 24px; align-items: start; padding: 20px 0; border-bottom: 1px solid var(--rule); text-decoration: none; }
+.clip-img { grid-column: 1; grid-row: 1; display: block; width: 100%; aspect-ratio: 3 / 2; object-fit: cover; background: var(--box); }
+.clip-text { grid-column: 2; }
+.clips a:not(.has-img) .clip-text { grid-column: 1 / 3; }
+.clips time { grid-column: 3; }
 .clips a:hover h3 { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
-.clips .outlet { margin: 0; }
+.clips .outlet { margin: 0 0 4px; }
 .clips h3 { font-family: var(--serif); font-weight: 500; font-size: var(--t-24); line-height: 1.2; margin: 0 0 4px; }
 .clips .dek { font-size: var(--t-16); }
 .clips time { font-size: var(--t-14); color: var(--ink-2); text-align: right; }
@@ -218,7 +222,10 @@ figcaption { margin-top: 10px; font-family: var(--sans); font-size: var(--t-14);
   .leads { grid-template-columns: 1fr; gap: 32px; margin-bottom: 24px; }
   .lead h3 { font-size: var(--t-24); }
   .clips a { grid-template-columns: 1fr; gap: 2px; }
-  .clips time { text-align: left; order: -1; font-size: 13px; }
+  .clips a.has-img { grid-template-columns: 1fr 96px; column-gap: 16px; }
+  .clips time { grid-column: 1; grid-row: 1; text-align: left; font-size: 13px; }
+  .clip-text, .clips a:not(.has-img) .clip-text { grid-column: 1; grid-row: 2; }
+  .clip-img { grid-column: 2; grid-row: 1 / span 2; aspect-ratio: 1; }
   .clips h3 { font-size: var(--t-21); }
   .essays { grid-template-columns: 1fr; gap: 28px; }
   .video-lead { grid-template-columns: 1fr; gap: 16px; margin-bottom: 28px; }

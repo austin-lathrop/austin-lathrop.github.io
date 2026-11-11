@@ -15,6 +15,10 @@ class BuildTest(unittest.TestCase):
             self.assertNotIn("{{", raw, f"unrendered Liquid in {f}")
             self.assertNotIn("{%", raw, f"unrendered Liquid in {f}")
 
+    def test_stylesheet_is_cache_busted(self):
+        raw = (site_dir() / "index.html").read_text(encoding="utf-8")
+        self.assertRegex(raw, r'href="/assets/css/site\.css\?v=\d+"')
+
 
 if __name__ == "__main__":
     unittest.main()

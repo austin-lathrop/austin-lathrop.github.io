@@ -67,9 +67,12 @@ layout: default
       {%- for s in sorted %}
       {%- assign key = s.url | append: "|" -%}
       {%- unless lead_urls contains key %}
-      <li><a href="{{ s.url | relative_url }}">
-        <p class="outlet">{{ s.outlet | escape }}</p>
-        <div><h3>{{ s.headline | escape }}</h3>{% if s.dek and s.dek != "" %}<p class="dek">{{ s.dek | escape }}</p>{% endif %}</div>
+      {%- assign has_img = false -%}{%- if s.image and s.image != "" -%}{%- assign has_img = true -%}{%- endif %}
+      <li><a href="{{ s.url | relative_url }}"{% if has_img %} class="has-img"{% endif %}>
+        {%- if has_img %}
+        <img class="clip-img" src="{{ s.image | relative_url }}" alt="{{ s.image_alt | default: s.headline | escape }}" loading="lazy">
+        {%- endif %}
+        <div class="clip-text"><p class="outlet">{{ s.outlet | escape }}</p><h3>{{ s.headline | escape }}</h3>{% if s.dek and s.dek != "" %}<p class="dek">{{ s.dek | escape }}</p>{% endif %}</div>
         <time datetime="{{ s.date | date: '%Y-%m-%d' }}">{{ s.date | date: "%b %Y" }}</time>
       </a></li>
       {%- endunless %}

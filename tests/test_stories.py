@@ -93,6 +93,24 @@ class StoryPagesTest(unittest.TestCase):
         clips = home.nodes("ul", cls="clips")[0]
         self.assertEqual([a.attrs["href"] for a in home.nodes("a", within=clips)][0], "/stories/plowshare-tea/")
 
+    def test_every_story_photo_on_home(self):
+        home = load("index.html")
+        writing = home.nodes("section", id="writing")[0]
+        imgs = [i.attrs.get("src", "") for i in home.nodes("img", within=writing)]
+        for slug, photo in [("plowshare-tea", "plowshare-tea-herbs.jpg"), ("beef-prices", "beef-cam-ranches-cattle.jpg"),
+                            ("ffa-busy-fall", "ffa-greenhouse.jpg"), ("4h-program-assistant", "4h-first-meeting.jpg"),
+                            ("athens-de-icing", "de-icing-trail-creek.jpg")]:
+            self.assertTrue(any(src.endswith("/" + photo) for src in imgs), f"{slug}: photo missing from home page")
+
+    def test_row_thumbnail_inside_its_link(self):
+        home = load("index.html")
+        clips = home.nodes("ul", cls="clips")[0]
+        for a in home.nodes("a", within=clips):
+            thumbs = home.nodes("img", cls="clip-img", within=a)
+            if a.attrs["href"] == "/stories/plowshare-tea/":
+                self.assertEqual(len(thumbs), 1)
+                self.assertTrue(thumbs[0].attrs.get("alt"), "thumbnail needs alt text")
+
     def test_home_writing_order(self):
         home = load("index.html")
         leads = home.nodes("div", cls="leads")
