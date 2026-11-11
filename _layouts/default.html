@@ -1,6 +1,6 @@
 {%- assign p = site.data.profile -%}
 {%- assign heading = page.headline | default: page.title -%}
-{%- if heading and page.url != "/" -%}{%- assign doc_title = heading | append: " | " | append: p.name -%}{%- else -%}{%- assign heading = p.name -%}{%- assign doc_title = p.name -%}{%- endif -%}
+{%- if heading and page.url != "/" -%}{%- assign doc_title = heading | append: " | " | append: p.name -%}{%- else -%}{%- assign heading = p.name -%}{%- assign doc_title = p.name -%}{%- if site.tagline -%}{%- assign doc_title = p.name | append: " | " | append: site.tagline -%}{%- endif -%}{%- endif -%}
 {%- assign doc_desc = page.dek | default: page.description | default: site.description -%}
 {%- capture canonical -%}{% include abs-url.html url=page.original_url %}{%- endcapture -%}
 {%- assign og_image = page.image | default: page.cover | default: page.og_image -%}
@@ -11,6 +11,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{ doc_title | escape }}</title>
 <meta name="description" content="{{ doc_desc | strip_html | escape }}">
+{%- if site.google_site_verification %}
+<meta name="google-site-verification" content="{{ site.google_site_verification | escape }}">
+{%- endif %}
 {%- if canonical != "" %}
 <link rel="canonical" href="{{ canonical }}">
 {%- endif %}
@@ -26,6 +29,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Public+Sans:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{{ '/assets/css/site.css' | relative_url }}?v={{ site.time | date: '%s' }}">
+{%- if page.url == "/" %}
+{% include person.html %}
+{%- endif %}
 </head>
 <body>
 {% include header.html %}

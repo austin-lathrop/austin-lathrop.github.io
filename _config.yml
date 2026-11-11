@@ -1,6 +1,11 @@
 title: Austin Lathrop
 description: Reporter covering agriculture, rural communities and the environment in Northeast Georgia.
 url: https://austin-lathrop.github.io
+# Shown after your name in the home page title in search results.
+tagline: Journalist in Athens, Georgia
+location: Athens, Georgia
+# Google Search Console ownership check (added 2026-11-11).
+google_site_verification: iAXYt6YNzmt5yTthFGUYZEFdbFtd0oDDuRGVgaegWGA
 baseurl: ""
 
 # Publish stories even if their date is later than the build time (a typo'd year must not hide a story).

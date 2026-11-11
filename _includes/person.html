@@ -1,0 +1,20 @@
+{%- comment -%} Tells search engines who this site is about (schema.org Person). Values come from the Profile. {%- endcomment -%}
+{%- assign p = site.data.profile -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": {{ p.name | jsonify }},
+  "jobTitle": "Journalist",
+  "url": {{ "/" | absolute_url | jsonify }},
+  {%- if p.email and p.email != "" %}
+  "email": {{ "mailto:" | append: p.email | jsonify }},
+  {%- endif %}
+  {%- if p.portrait and p.portrait != "" %}
+  "image": {{ p.portrait | absolute_url | jsonify }},
+  {%- endif %}
+  "sameAs": [{% if p.linkedin and p.linkedin != "" %}{{ p.linkedin | jsonify }}{% endif %}],
+  "homeLocation": { "@type": "Place", "name": {{ site.location | jsonify }} },
+  "description": {{ p.opening_line | jsonify }}
+}
+</script>

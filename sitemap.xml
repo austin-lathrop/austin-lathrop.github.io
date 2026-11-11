@@ -1,0 +1,16 @@
+---
+layout: null
+---
+<?xml version="1.0" encoding="UTF-8"?>
+{%- comment -%} Story pages are left out on purpose: they point search engines at the outlet's original. {%- endcomment %}
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>{{ "/" | absolute_url }}</loc>
+    <lastmod>{{ site.time | date_to_xmlschema }}</lastmod>
+  </url>
+  {%- for e in site.essays %}
+  <url>
+    <loc>{{ e.url | absolute_url }}</loc>
+  </url>
+  {%- endfor %}
+</urlset>
