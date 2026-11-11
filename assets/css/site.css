@@ -60,7 +60,7 @@ img { max-width: 100%; }
   font-size: var(--t-14); font-weight: 600; text-decoration: none;
   border: 1.5px solid var(--ink); border-radius: 2px; white-space: nowrap;
 }
-.btn-solid { background: var(--ink); color: var(--paper); }
+.btn-solid { background: var(--accent); border-color: var(--accent); color: var(--paper); }
 
 /* Section heads */
 .section { padding: 96px 0 0; }
