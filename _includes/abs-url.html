@@ -1,0 +1,6 @@
+{%- comment -%} Outputs an escaped absolute link: adds https:// when someone typed "www.example.com/..."; outputs nothing for a blank value. {%- endcomment -%}
+{%- assign u = include.url | strip -%}
+{%- if u != "" -%}
+  {%- unless u contains "://" or u contains "mailto:" -%}{%- assign u = "https://" | append: u -%}{%- endunless -%}
+  {{- u | escape -}}
+{%- endif -%}

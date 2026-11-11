@@ -54,6 +54,9 @@ content:
         label: Link to the original story
         type: string
         required: true
+        pattern:
+          regex: "^https?://"
+          message: Start the link with https://
         description: The full web address of the story on the outlet's site.
       - name: lead
         label: Feature on home page
@@ -87,6 +90,7 @@ content:
           - name: image
             label: Photo or chart
             type: image
+            required: true
             options:
               media: images
               path: assets/images/stories
@@ -102,9 +106,9 @@ content:
           - name: after_paragraph
             label: Show this photo after paragraph number
             type: number
-            description: Count paragraphs from the top of the story. A number past the end puts the photo at the bottom.
+            description: Count paragraphs from the top of the story. Leave blank, or use a number past the end, to put the photo at the bottom.
             options:
-              min: 0
+              min: 1
       - name: body
         label: Story text
         type: rich-text
@@ -145,6 +149,9 @@ content:
       - name: published_url
         label: Link to the published version
         type: string
+        pattern:
+          regex: "^https?://"
+          message: Start the link with https://
       - name: cover
         label: Cover photo
         type: image
@@ -162,6 +169,7 @@ content:
           - name: image
             label: Photo
             type: image
+            required: true
             options:
               media: images
               path: assets/images/essays
@@ -214,6 +222,9 @@ content:
         label: Video link
         type: string
         required: true
+        pattern:
+          regex: "^https?://"
+          message: Start the link with https://
         description: A YouTube or Vimeo link plays on the page. Any other link shows a Watch button.
       - name: lead
         label: Feature as the large video
@@ -246,6 +257,9 @@ content:
       - name: linkedin
         label: LinkedIn link
         type: string
+        pattern:
+          regex: "^https?://"
+          message: Start the link with https://
       - name: portrait
         label: Portrait
         type: image

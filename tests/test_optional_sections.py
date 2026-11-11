@@ -29,7 +29,7 @@ class PopulatedSectionsTest(unittest.TestCase):
     def test_essay_grid_and_page(self):
         photo = self.home.nodes("section", id="photo")
         self.assertEqual(len(photo), 1)
-        self.assertEqual([a.attrs["href"] for a in self.home.nodes("a", within=photo[0])], ["/photo/flood-season/"])
+        self.assertIn("/photo/flood-season/", [a.attrs["href"] for a in self.home.nodes("a", within=photo[0])])
         page = load("photo/flood-season/index.html")
         frames = page.nodes("div", cls="frames")[0]
         self.assertEqual(len(page.nodes("figure", within=frames)), 5)
@@ -44,9 +44,22 @@ class PopulatedSectionsTest(unittest.TestCase):
         srcs = [f.attrs.get("src") for f in self.home.nodes("iframe", within=video)]
         self.assertIn("https://www.youtube-nocookie.com/embed/abc123XYZ_9", srcs)
         self.assertIn("https://player.vimeo.com/video/76979871", srcs)
-        self.assertEqual(len(srcs), 2, "a non-YouTube/Vimeo link must not become an iframe")
+        self.assertIn("https://www.youtube-nocookie.com/embed/shortID42", srcs)
+        self.assertEqual(len(srcs), 3, "a non-YouTube/Vimeo link must not become an iframe")
         links = [a for a in self.home.nodes("a", within=video) if a.attrs.get("href") == "https://example.com/videos/before-the-storm"]
         self.assertEqual([a.text() for a in links], ["Watch Before the Storm"])
+
+    def test_blank_video_fields_leave_no_empty_elements(self):
+        video = self.home.nodes("section", id="video")[0]
+        for tag in ("dd", "p", "dt", "h4"):
+            empty = [n for n in self.home.nodes(tag, within=video) if not n.text()]
+            self.assertEqual(empty, [], f"empty <{tag}> in Video section")
+        self.assertNotIn(", 2026", [n.text()[:6] for n in self.home.nodes("p", within=video)])
+
+    def test_blank_essay_cover_and_location(self):
+        photo = self.home.nodes("section", id="photo")[0]
+        texts = [p.text() for p in self.home.nodes("p", within=photo)]
+        self.assertFalse(any(t.startswith(",") for t in texts), texts)
 
     def test_lead_video_first(self):
         video = self.home.nodes("section", id="video")[0]

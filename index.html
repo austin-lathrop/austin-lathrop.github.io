@@ -91,9 +91,10 @@ layout: default
     <div class="essays">
       {%- for e in site.essays %}
       <a href="{{ e.url | relative_url }}">
-        {%- if e.cover %}<img src="{{ e.cover | relative_url }}" alt="">{% endif %}
+        {%- if e.cover and e.cover != "" %}<img src="{{ e.cover | relative_url }}" alt="">{% endif %}
         <h3>{{ e.title | escape }}</h3>
-        <p>{{ e.location | escape }}{% if e.outlet and e.outlet != "" %}, for {{ e.outlet | escape }}{% endif %}</p>
+        {%- capture where %}{% if e.location and e.location != "" %}{{ e.location | escape }}{% endif %}{% if e.outlet and e.outlet != "" %}{% if e.location and e.location != "" %}, {% endif %}for {{ e.outlet | escape }}{% endif %}{% endcapture %}
+        {%- if where != "" %}<p>{{ where }}</p>{% endif %}
       </a>
       {%- endfor %}
     </div>
@@ -111,11 +112,12 @@ layout: default
     <div class="video-lead">
       {% include video-embed.html url=lead_video.url title=lead_video.title %}
       <div>
-        <p class="outlet">{{ lead_video.outlet | escape }}{% if lead_video.year %}, {{ lead_video.year }}{% endif %}</p>
+        {%- capture vline %}{% if lead_video.outlet and lead_video.outlet != "" %}{{ lead_video.outlet | escape }}{% endif %}{% if lead_video.year and lead_video.year != "" %}{% if lead_video.outlet and lead_video.outlet != "" %}, {% endif %}{{ lead_video.year }}{% endif %}{% endcapture %}
+        {%- if vline != "" %}<p class="outlet">{{ vline }}</p>{% endif %}
         <h3>{{ lead_video.title | escape }}</h3>
         <dl class="credits">
-          {%- if lead_video.runtime %}<dt>Runtime</dt><dd>{{ lead_video.runtime | escape }}</dd>{% endif %}
-          {%- if lead_video.role %}<dt>My role</dt><dd>{{ lead_video.role | escape }}</dd>{% endif %}
+          {%- if lead_video.runtime and lead_video.runtime != "" %}<dt>Runtime</dt><dd>{{ lead_video.runtime | escape }}</dd>{% endif %}
+          {%- if lead_video.role and lead_video.role != "" %}<dt>My role</dt><dd>{{ lead_video.role | escape }}</dd>{% endif %}
         </dl>
       </div>
     </div>
@@ -126,8 +128,9 @@ layout: default
       <article>
         {% include video-embed.html url=v.url title=v.title %}
         <h4>{{ v.title | escape }}</h4>
-        <p>{{ v.outlet | escape }}{% if v.runtime %}, {{ v.runtime | escape }}{% endif %}</p>
-        {%- if v.role %}<p>{{ v.role | escape }}</p>{% endif %}
+        {%- capture vline %}{% if v.outlet and v.outlet != "" %}{{ v.outlet | escape }}{% endif %}{% if v.runtime and v.runtime != "" %}{% if v.outlet and v.outlet != "" %}, {% endif %}{{ v.runtime | escape }}{% endif %}{% endcapture %}
+        {%- if vline != "" %}<p>{{ vline }}</p>{% endif %}
+        {%- if v.role and v.role != "" %}<p>{{ v.role | escape }}</p>{% endif %}
       </article>
       {%- endif %}
       {%- endfor %}
@@ -170,7 +173,7 @@ layout: default
       {%- endif %}
       {%- if p.linkedin and p.linkedin != "" %}
       <ul>
-        <li><a href="{{ p.linkedin | escape }}" target="_blank" rel="noopener">LinkedIn</a></li>
+        <li><a href="{% include abs-url.html url=p.linkedin %}" target="_blank" rel="noopener">LinkedIn</a></li>
       </ul>
       {%- endif %}
     </div>

@@ -17,3 +17,9 @@
   runtime: "2:55"
   role: Reported and produced
   url: https://example.com/videos/before-the-storm
+- title: Only title and link
+  outlet: ""
+  year:
+  runtime: ""
+  role: ""
+  url: https://youtu.be/shortID42

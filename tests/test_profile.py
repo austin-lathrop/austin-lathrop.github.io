@@ -85,7 +85,9 @@ class ProfileHomeTest(unittest.TestCase):
         for f in html_files():
             page = Page(f.read_text(encoding="utf-8"))
             for a in page.find_all("a"):
-                self.assertNotIn(a["attrs"].get("href"), ("", "#", None), f"empty link '{a['text']}' in {f}")
+                self.assertNotIn(a["attrs"].get("href"), ("", "#", None, "mailto:", "https://"), f"empty link '{a['text']}' in {f}")
+            for img in page.find_all("img"):
+                self.assertTrue(img["attrs"].get("src"), f"empty image src in {f}")
 
 
 if __name__ == "__main__":

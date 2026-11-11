@@ -2,7 +2,7 @@
 {%- assign heading = page.headline | default: page.title -%}
 {%- if heading and page.url != "/" -%}{%- assign doc_title = heading | append: " | " | append: p.name -%}{%- else -%}{%- assign heading = p.name -%}{%- assign doc_title = p.name -%}{%- endif -%}
 {%- assign doc_desc = page.dek | default: page.description | default: site.description -%}
-{%- assign canonical = page.original_url | default: page.canonical -%}
+{%- capture canonical -%}{% include abs-url.html url=page.original_url %}{%- endcapture -%}
 {%- assign og_image = page.image | default: page.cover | default: page.og_image -%}
 <!doctype html>
 <html lang="en">
@@ -11,8 +11,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{ doc_title | escape }}</title>
 <meta name="description" content="{{ doc_desc | strip_html | escape }}">
-{%- if canonical %}
-<link rel="canonical" href="{{ canonical | escape }}">
+{%- if canonical != "" %}
+<link rel="canonical" href="{{ canonical }}">
 {%- endif %}
 <meta property="og:type" content="{% if page.collection %}article{% else %}website{% endif %}">
 <meta property="og:title" content="{{ heading | escape }}">

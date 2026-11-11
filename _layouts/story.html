@@ -8,6 +8,7 @@ layout: default
 {%- assign words = content | strip_html | number_of_words -%}
 {%- assign minutes = words | divided_by: 230.0 | ceil -%}
 {%- assign long_date = page.date | date: "%B %-d, %Y" -%}
+{%- capture orig -%}{% include abs-url.html url=page.original_url %}{%- endcapture -%}
 <main class="wrap">
   <a class="back" href="{{ '/' | relative_url }}#writing">Back to all writing</a>
 
@@ -33,30 +34,33 @@ layout: default
           <div><dt>Reading time</dt><dd>{{ minutes }} min</dd></div>
           {%- endif %}
         </dl>
-        {%- if page.original_url %}
-        <a class="btn" href="{{ page.original_url | escape }}" target="_blank" rel="noopener">Read the original</a>
+        {%- if orig != "" %}
+        <a class="btn" href="{{ orig }}" target="_blank" rel="noopener">Read the original</a>
         {%- endif %}
       </aside>
 
       <div class="body">
         {%- assign text = content | strip_html | strip -%}
-        {%- if text == "" and page.original_url %}
-        <p><a href="{{ page.original_url | escape }}" target="_blank" rel="noopener">Read the full story at {{ page.outlet | escape }}</a></p>
+        {%- if text == "" and orig != "" %}
+        <p><a href="{{ orig }}" target="_blank" rel="noopener">Read the full story at {{ page.outlet | escape }}</a></p>
         {%- endif -%}
         {%- assign parts = content | split: "</p>" -%}
+        {%- comment -%} Paragraph numbers from the editor may be blank, 0, text ("2") or fractional: normalise once, and anything that is not 1..paragraph count goes at the end. {%- endcomment -%}
         {%- for part in parts -%}
           {%- assign n = forloop.index -%}
           {{ part }}
           {%- unless forloop.last -%}</p>
             {%- for ph in page.photos -%}
-              {%- if ph.after_paragraph == n -%}
+              {%- assign ap = ph.after_paragraph | default: 0 | plus: 0 | round -%}
+              {%- if ap == n -%}
                 {% include figure.html src=ph.image alt=ph.alt caption=ph.caption credit=ph.credit class="inline" %}
               {%- endif -%}
             {%- endfor -%}
           {%- endunless -%}
         {%- endfor -%}
         {%- for ph in page.photos -%}
-          {%- if ph.after_paragraph >= parts.size -%}
+          {%- assign ap = ph.after_paragraph | default: 0 | plus: 0 | round -%}
+          {%- if ap < 1 or ap >= parts.size -%}
             {% include figure.html src=ph.image alt=ph.alt caption=ph.caption credit=ph.credit class="inline" %}
           {%- endif -%}
         {%- endfor %}
@@ -64,7 +68,7 @@ layout: default
     </div>
 
     <footer class="story-foot">
-      <p class="credit">Originally published by {{ page.outlet | escape }} on {{ long_date }}.{% if page.original_url %} <a href="{{ page.original_url | escape }}" target="_blank" rel="noopener">Read it at {{ page.outlet | escape }}</a>.{% endif %}</p>
+      <p class="credit">Originally published by {{ page.outlet | escape }} on {{ long_date }}.{% if orig != "" %} <a href="{{ orig }}" target="_blank" rel="noopener">Read it at {{ page.outlet | escape }}</a>.{% endif %}</p>
       {%- if sorted.size > 1 %}
       <a class="next" href="{{ next.url | relative_url }}">
         <p>Next story</p>

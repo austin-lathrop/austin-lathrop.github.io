@@ -18,8 +18,8 @@ layout: default
     <dl class="facts">
       {%- if page.location and page.location != "" %}<div><dt>Where</dt><dd>{{ page.location | escape }}</dd></div>{% endif %}
       {%- if page.dates and page.dates != "" %}<div><dt>When</dt><dd>{{ page.dates | escape }}</dd></div>{% endif %}
-      {%- if page.outlet and page.outlet != "" %}<div><dt>Published by</dt><dd>{% if page.published_url and page.published_url != "" %}<a href="{{ page.published_url | escape }}" target="_blank" rel="noopener">{{ page.outlet | escape }}</a>{% else %}{{ page.outlet | escape }}{% endif %}</dd></div>{% endif %}
-      <div><dt>Frames</dt><dd>{{ page.frames.size }} photographs</dd></div>
+      {%- if page.outlet and page.outlet != "" %}<div><dt>Published by</dt><dd>{%- capture pub %}{% include abs-url.html url=page.published_url %}{% endcapture %}{% if pub != "" %}<a href="{{ pub }}" target="_blank" rel="noopener">{{ page.outlet | escape }}</a>{% else %}{{ page.outlet | escape }}{% endif %}</dd></div>{% endif %}
+      {%- if page.frames.size > 0 %}<div><dt>Frames</dt><dd>{{ page.frames.size }} {% if page.frames.size == 1 %}photograph{% else %}photographs{% endif %}</dd></div>{% endif %}
     </dl>
   </header>
 
@@ -48,7 +48,7 @@ layout: default
     {%- if all.size > 1 %}
     <a class="next" href="{{ next.url | relative_url }}">
       <p>Next essay</p>
-      {%- if next.cover %}<img src="{{ next.cover | relative_url }}" alt="">{% endif %}
+      {%- if next.cover and next.cover != "" %}<img src="{{ next.cover | relative_url }}" alt="">{% endif %}
       <h3>{{ next.title | escape }}</h3>
     </a>
     {%- endif %}

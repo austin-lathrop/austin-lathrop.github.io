@@ -85,6 +85,8 @@ class StoryPagesTest(unittest.TestCase):
         canon = page.find_all("link", rel="canonical")
         self.assertEqual(canon[0]["attrs"]["href"],
                          "https://www.theoglethorpeecho.com/local-news/plowshare-members-share-tea-recipes-ingredients-meeting")
+        self.assertEqual(len(page.nodes("p", within=page.nodes("div", cls="body")[0])), 14)
+        self.assertIn("tea night in Crawford", lead[0].text())
 
     def test_newest_story_tops_the_list(self):
         if fixtures_on():
@@ -157,6 +159,33 @@ class StoryEdgeCasesTest(unittest.TestCase):
         clips = home.nodes("ul", cls="clips")[0]
         self.assertNotIn("/stories/edge-case/", [a.attrs["href"] for a in home.nodes("a", within=leads)])
         self.assertIn("/stories/edge-case/", [a.attrs["href"] for a in home.nodes("a", within=clips)])
+
+    def test_every_photo_with_an_image_appears_once(self):
+        page = load("stories/hostile-cms/index.html")
+        body = page.nodes("div", cls="body")[0]
+        captions = sorted(f.text() for f in page.nodes("figcaption", within=body))
+        self.assertEqual(captions, sorted(["blank number", "no number key", "zero", "text two", "one and a half"]))
+
+    def test_text_paragraph_number_is_honoured(self):
+        page = load("stories/hostile-cms/index.html")
+        nxt = figure_after(body_children(page), 2)
+        self.assertEqual(nxt.tag, "figure")
+        self.assertIn("text two", nxt.text())
+
+    def test_link_without_scheme_gets_https(self):
+        page = load("stories/hostile-cms/index.html")
+        self.assertEqual(page.find_all("link", rel="canonical")[0]["attrs"]["href"], "https://www.example.com/no-scheme")
+        hrefs = [a["attrs"].get("href") for a in page.find_all("a") if "original" in a["text"] or "Read it at" in a["text"]]
+        self.assertTrue(hrefs)
+        self.assertTrue(all(h == "https://www.example.com/no-scheme" for h in hrefs), hrefs)
+
+    def test_uploaded_filename_with_spaces_loads(self):
+        from urllib.parse import unquote
+        page = load("stories/hostile-cms/index.html")
+        lead = page.nodes("figure", cls="lead-figure")[0]
+        src = img_src(lead)
+        self.assertNotIn(" ", src)
+        self.assertTrue((site_dir() / unquote(src).lstrip("/")).is_file(), src)
 
     def test_story_without_text_points_to_original(self):
         page = load("stories/no-text-yet/index.html")

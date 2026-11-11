@@ -82,6 +82,23 @@ class PagesCmsConfigTest(unittest.TestCase):
         self.assertEqual(layout["options"]["values"], ["full", "pair", "inset"])
 
 
+    def test_link_fields_require_https(self):
+        pairs = [("stories", None, "original_url"), ("essays", None, "published_url"),
+                 ("profile", None, "linkedin"), ("videos", None, "url")]
+        for entry_name, _, field in pairs:
+            f = [x for x in entry(self.cfg, entry_name)["fields"] if x["name"] == field][0]
+            self.assertEqual(f.get("pattern", {}).get("regex"), "^https?://", f"{entry_name}.{field}")
+
+    def test_photo_rows_need_an_image_and_number_starts_at_one(self):
+        photos = subfields(entry(self.cfg, "stories")["fields"], "photos")
+        img = [f for f in photos if f["name"] == "image"][0]
+        self.assertTrue(img.get("required"))
+        num = [f for f in photos if f["name"] == "after_paragraph"][0]
+        self.assertEqual(num["options"]["min"], 1)
+        frames = subfields(entry(self.cfg, "essays")["fields"], "frames")
+        self.assertTrue([f for f in frames if f["name"] == "image"][0].get("required"))
+
+
 @unittest.skipUnless(fixtures_on(), "needs tests/build_with_fixtures.sh")
 class CmsEdgeCasesTest(unittest.TestCase):
     def test_future_dated_story_still_published(self):
