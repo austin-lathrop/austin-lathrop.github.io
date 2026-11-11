@@ -36,6 +36,11 @@ class ContrastTest(unittest.TestCase):
         for name, (fg, bg) in pairs.items():
             self.assertGreaterEqual(contrast(fg, bg), 4.5, f"{name}: {contrast(fg, bg):.2f}")
 
+    def test_chosen_palette(self):
+        # Owner chose option A, pine green, on 2026-11-11.
+        self.assertEqual(palette(), {"paper": "#ffffff", "ink": "#1c2420", "ink-2": "#55605a",
+                                     "rule": "#c5cec8", "box": "#eef2ee", "accent": "#2f5d46"})
+
     def test_solid_buttons_use_accent(self):
         css = (site_dir() / "assets" / "css" / "site.css").read_text(encoding="utf-8")
         rule = re.search(r"\.btn-solid\s*\{([^}]*)\}", css).group(1)

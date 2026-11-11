@@ -1,12 +1,12 @@
 /* Austin Lathrop portfolio. Layout carried over from the approved wireframes. */
 :root {
-  /* Palette: chosen in the design step; only these values change. */
+  /* Palette: pine green (option A), chosen 2026-11-11. */
   --paper: #ffffff;
-  --ink: #202326;
-  --ink-2: #5e636b;
-  --rule: #b9bec5;
-  --box: #e9ebee;
-  --accent: #202326;
+  --ink: #1c2420;
+  --ink-2: #55605a;
+  --rule: #c5cec8;
+  --box: #eef2ee;
+  --accent: #2f5d46;
 
   --serif: "Newsreader", Georgia, serif;
   --sans: "Public Sans", system-ui, sans-serif;
