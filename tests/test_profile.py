@@ -1,7 +1,7 @@
 import re
 import unittest
 
-from sitelib import ROOT, html_files, load, Page
+from sitelib import ROOT, html_files, load, Page, site_dir
 
 EMAIL = "austinlathrop132@gmail.com"
 LINKEDIN = "https://www.linkedin.com/in/austin-lathrop-658bb330a/"
@@ -58,6 +58,7 @@ class ProfileHomeTest(unittest.TestCase):
             self.assertTrue(has_button, "profile has a CV but no Download CV button")
             hrefs = [a["attrs"].get("href") for a in self.home.find_all("a") if "CV" in a["text"]]
             self.assertTrue(all(h == cv for h in hrefs), hrefs)
+            self.assertTrue((site_dir() / cv.lstrip("/")).is_file(), f"CV file {cv} missing from the built site")
         else:
             self.assertFalse(has_button, "Download CV shown with no CV file")
 

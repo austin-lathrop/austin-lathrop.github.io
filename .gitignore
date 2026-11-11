@@ -6,6 +6,5 @@ vendor/
 .claude/
 .superpowers/
 .DS_Store
-# Not published until the owner chooses which CV to make public (see plan Task 8)
-assets/cv.pdf
+# Preview-only copy of the CV; the published one is assets/files/cv.pdf
 wireframes/cv.pdf
